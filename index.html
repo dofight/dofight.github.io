@@ -3,9 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- seo: written by build.py -->
 <title>Dofight · L'assistant de combat pour Dofus 3</title>
 <meta name="description" content="Dofight : un panneau à côté de Dofus 3 qui te montre ce qui est dangereux chez les monstres autour de toi. Gratuit, open source, lecture de l'écran uniquement.">
-<link rel="icon" href="images/favicon.png">
+<link rel="canonical" href="https://dofight.github.io/">
+<link rel="alternate" hreflang="fr" href="https://dofight.github.io/">
+<link rel="alternate" hreflang="en" href="https://dofight.github.io/en/">
+<link rel="alternate" hreflang="x-default" href="https://dofight.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dofight">
+<meta property="og:title" content="Dofight · L'assistant de combat pour Dofus 3">
+<meta property="og:description" content="Dofight : un panneau à côté de Dofus 3 qui te montre ce qui est dangereux chez les monstres autour de toi. Gratuit, open source, lecture de l'écran uniquement.">
+<meta property="og:url" content="https://dofight.github.io/">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:image" content="https://dofight.github.io/images/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Dofight ouvert à côté d'un combat de Dofus 3">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1e2831">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Dofight", "description": "Dofight : un panneau à côté de Dofus 3 qui te montre ce qui est dangereux chez les monstres autour de toi. Gratuit, open source, lecture de l'écran uniquement.", "url": "https://dofight.github.io/", "image": "https://dofight.github.io/images/og.jpg", "applicationCategory": "GameApplication", "operatingSystem": "Windows 10, Windows 11", "downloadUrl": "https://github.com/dofight/dofight/releases/latest", "license": "https://github.com/dofight/dofight/blob/main/LICENSE", "inLanguage": ["fr", "en"], "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "sameAs": ["https://github.com/dofight/dofight", "https://discord.gg/G8G4cyvpx6"]}</script>
+<!-- /seo -->
+<link rel="icon" href="/images/favicon.png">
 <style>
 /* Dofight's own slate and gold (app/src/styles.css, the « Défaut » theme) */
 :root{
@@ -62,7 +82,7 @@ kbd{font:600 .88em var(--body);background:var(--bar);border:1px solid var(--line
   background:
     linear-gradient(90deg,rgba(30,40,49,.94) 0%,rgba(30,40,49,.86) 45%,rgba(30,40,49,.72) 100%),
     linear-gradient(180deg,transparent 55%,#1e2831 100%),
-    url(images/hero-bg.jpg) left bottom/cover no-repeat}
+    url(/images/hero-bg.jpg) left bottom/cover no-repeat}
 @media (max-width:860px){section{padding:48px 0}.hero{padding:40px 0 48px}}
 .hero .wrap{display:grid;grid-template-columns:minmax(0,.74fr) minmax(0,1.26fr);gap:48px;align-items:center}
 .hero h1{font-size:clamp(32px,4.4vw,46px);font-weight:700;letter-spacing:-.01em}
@@ -198,7 +218,7 @@ document.addEventListener("loadeddata", function (e) {
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#top"><img src="images/logo.png" alt="" width="32" height="32">Dofight</a>
+    <a class="brand" href="#top"><img src="/images/logo.png" alt="" width="32" height="32">Dofight</a>
     <nav lang="fr" aria-label="Sections">
       <a href="#features">Fonctions</a><a href="#reads">Ce qu'il lit</a><a href="#install">Installation</a><a href="#faq">Questions</a>
     </nav>
@@ -242,7 +262,7 @@ document.addEventListener("loadeddata", function (e) {
       <div class="vid">
         <div class="ph"><i aria-hidden="true"></i><b lang="fr">Vidéo à venir</b><b lang="en">Video coming soon</b>
           <span lang="fr">Dofight par-dessus Ganymède, du début à la fin d'un combat</span><span lang="en">Dofight on top of Ganymède, from the start to the end of a fight</span></div>
-        <video autoplay muted loop playsinline preload="metadata" poster="videos/1-usage.jpg"><source src="videos/1-usage.mp4" type="video/mp4"></video>
+        <video autoplay muted loop playsinline preload="metadata" poster="/videos/1-usage.jpg"><source src="/videos/1-usage.mp4" type="video/mp4"></video>
       </div>
       <figcaption lang="fr">Dofight placé par-dessus Ganymède. Hors combat, il reste caché. Il s'ouvre tout seul au début d'un combat et se referme à la fin, sans prendre de place en plus à l'écran.</figcaption>
       <figcaption lang="en">Dofight placed on top of Ganymède. Outside fights, it stays hidden. It opens on its own when a fight starts and closes when it ends, without taking any extra room on screen.</figcaption>
@@ -270,7 +290,7 @@ document.addEventListener("loadeddata", function (e) {
       <div class="vid">
         <div class="ph"><i aria-hidden="true"></i><b lang="fr">Vidéo à venir</b><b lang="en">Video coming soon</b>
           <span lang="fr">Un changement de sous-zone, puis l'entrée dans un donjon</span><span lang="en">Changing subarea, then walking into a dungeon</span></div>
-        <video autoplay muted loop playsinline preload="metadata" poster="videos/2-zone.jpg"><source src="videos/2-zone.mp4" type="video/mp4"></video>
+        <video autoplay muted loop playsinline preload="metadata" poster="/videos/2-zone.jpg"><source src="/videos/2-zone.mp4" type="video/mp4"></video>
       </div>
       <figcaption lang="fr">La liste change quand tu changes de sous-zone.</figcaption>
       <figcaption lang="en">The list changes when you change subarea.</figcaption>
@@ -287,7 +307,7 @@ document.addEventListener("loadeddata", function (e) {
       <div class="vid">
         <div class="ph"><i aria-hidden="true"></i><b lang="fr">Vidéo à venir</b><b lang="en">Video coming soon</b>
           <span lang="fr">La pastille «&nbsp;ⓘ&nbsp;» : survol, puis clic pour l'épingler</span><span lang="en">The “ⓘ” chip: hover, then click to pin it</span></div>
-        <video autoplay muted loop playsinline preload="metadata" poster="videos/3-chip.jpg"><source src="videos/3-chip.mp4" type="video/mp4"></video>
+        <video autoplay muted loop playsinline preload="metadata" poster="/videos/3-chip.jpg"><source src="/videos/3-chip.mp4" type="video/mp4"></video>
       </div>
       <figcaption lang="fr">Un aperçu au survol. Un clic l'épingle.</figcaption>
       <figcaption lang="en">A preview on hover. A click pins it.</figcaption>
@@ -306,7 +326,7 @@ document.addEventListener("loadeddata", function (e) {
       <div class="vid">
         <div class="ph"><i aria-hidden="true"></i><b lang="fr">Vidéo à venir</b><b lang="en">Video coming soon</b>
           <span lang="fr">Un monstre replié survolé, sa fiche ouverte, un sort survolé</span><span lang="en">Hovering a collapsed monster, opening its card, hovering a spell</span></div>
-        <video autoplay muted loop playsinline preload="metadata" poster="videos/4-card.jpg"><source src="videos/4-card.mp4" type="video/mp4"></video>
+        <video autoplay muted loop playsinline preload="metadata" poster="/videos/4-card.jpg"><source src="/videos/4-card.mp4" type="video/mp4"></video>
       </div>
       <figcaption lang="fr">Les trois types de badges : Danger, Conseil, Mécanique.</figcaption>
       <figcaption lang="en">The three kinds of badges: Danger, Tip, Mechanic.</figcaption>
@@ -323,7 +343,7 @@ document.addEventListener("loadeddata", function (e) {
       <div class="vid">
         <div class="ph"><i aria-hidden="true"></i><b lang="fr">Vidéo à venir</b><b lang="en">Video coming soon</b>
           <span lang="fr">Un groupe survolé sur la carte s'affiche dans la liste</span><span lang="en">A group hovered on the map shows up in the list</span></div>
-        <video autoplay muted loop playsinline preload="metadata" poster="videos/5-songe.jpg"><source src="videos/5-songe.mp4" type="video/mp4"></video>
+        <video autoplay muted loop playsinline preload="metadata" poster="/videos/5-songe.jpg"><source src="/videos/5-songe.mp4" type="video/mp4"></video>
       </div>
       <figcaption lang="fr">Tu vois le groupe avant de lancer le combat.</figcaption>
       <figcaption lang="en">You see the group before you start the fight.</figcaption>
@@ -345,8 +365,8 @@ document.addEventListener("loadeddata", function (e) {
 
     <div class="reads">
       <figure class="corner">
-        <img lang="fr" src="images/corner-fr.png" width="230" height="89" alt="Le coin en haut à gauche de Dofus : la barre d'icônes, puis le nom de la sous-zone et les coordonnées de la carte">
-        <img lang="en" src="images/corner-en.png" width="232" height="88" alt="The top-left corner of Dofus: the icon bar, then the subarea name and the map coordinates">
+        <img lang="fr" src="/images/corner-fr.png" width="230" height="89" alt="Le coin en haut à gauche de Dofus : la barre d'icônes, puis le nom de la sous-zone et les coordonnées de la carte">
+        <img lang="en" src="/images/corner-en.png" width="232" height="88" alt="The top-left corner of Dofus: the icon bar, then the subarea name and the map coordinates">
         <figcaption lang="fr">Le coin que Dofight lit : la barre d'icônes (l'œil hors combat, le cœur en combat), le nom de ta sous-zone et les coordonnées de la carte.</figcaption>
         <figcaption lang="en">The corner Dofight reads: the icon bar (an eye out of a fight, a heart in a fight), your subarea name and the map coordinates.</figcaption>
       </figure>
@@ -521,25 +541,32 @@ document.addEventListener("loadeddata", function (e) {
 </footer>
 
 <script>
-// FR/EN switch: ?lang=, then the last choice, then the browser's language (French by default without JS).
+// FR/EN: each language has its own page (/ and /en/, built by build.py), the <html lang> says which one this is.
+// Going to the other page: a click on FR/EN, an old ?lang= link, the last choice, or, on / only, a browser that
+// isn't French (never for a search engine's robot, so that / stays the French page in search results).
 (function () {
   var root = document.documentElement;
-  var titles = { fr: "Dofight · L'assistant de combat pour Dofus 3", en: "Dofight · The fight assistant for Dofus 3" };
-  function set(lang, save) {
-    if (lang !== "fr" && lang !== "en") return;
-    root.lang = lang;
-    document.title = titles[lang];
-    document.querySelectorAll(".langs button").forEach(function (b) {
-      b.setAttribute("aria-pressed", String(b.dataset.lang === lang));
-    });
-    if (save) try { localStorage.setItem("lang", lang); } catch (e) {}
+  var here = root.lang;
+  var pages = { fr: "/", en: "/en/" };
+  function go(lang) {
+    if (lang !== here && pages[lang]) location.replace(pages[lang] + location.hash);
   }
   var saved = null;
   try { saved = localStorage.getItem("lang"); } catch (e) {}
   var asked = new URLSearchParams(location.search).get("lang");
-  set(asked || saved || (/^fr\b/i.test(navigator.language || "fr") ? "fr" : "en"), false);
+  var robot = /bot|crawl|spider|slurp|preview|facebookexternalhit|discord/i.test(navigator.userAgent);
+  var browser = /^fr\b/i.test(navigator.language || "fr") ? "fr" : "en";
+  if (asked === "fr" || asked === "en") {
+    try { localStorage.setItem("lang", asked); } catch (e) {}
+    go(asked);
+  } else if (saved) go(saved);
+  else if (here === "fr" && !robot) go(browser);
   document.querySelectorAll(".langs button").forEach(function (b) {
-    b.addEventListener("click", function () { set(b.dataset.lang, true); });
+    b.setAttribute("aria-pressed", String(b.dataset.lang === here));
+    b.addEventListener("click", function () {
+      try { localStorage.setItem("lang", b.dataset.lang); } catch (e) {}
+      go(b.dataset.lang);
+    });
   });
   // one anchor per question (#faq-allowed…): the French item carries the id, its English twin data-q
   function openFromHash() {
