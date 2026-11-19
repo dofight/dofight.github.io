@@ -70,6 +70,7 @@ def head(lang: str) -> str:
         f'<meta property="og:image:alt" content="{esc(t["image_alt"])}">',
         '<meta name="twitter:card" content="summary_large_image">',
         '<meta name="theme-color" content="#1e2831">',
+        '<meta name="google-site-verification" content="2zyhJK7FzVzOcl51zQkoh4fyFUQJCYZ-jEqQzTPVTx8">',  # Search Console
         f'<script type="application/ld+json">{json.dumps(app, ensure_ascii=False)}</script>',
         "<!-- /seo -->",
     ])
