@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dofight · L'assistant de combat pour Dofus 3</title>
+<meta name="description" content="Dofight : un panneau à côté de Dofus 3 qui te montre ce qui est dangereux chez les monstres autour de toi. Gratuit, open source, lecture de l'écran uniquement.">
+<link rel="icon" href="images/favicon.png">
+<style>
+/* Dofight's own slate and gold (app/src/styles.css, the « Défaut » theme) */
+:root{
+  --page:#1e2831; --bar:#3e4650; --card:#21303c; --line:#3a4856; --fg:#e8edf2; --muted:#9aa6b2;
+  --gold:#e3b54f; --gold-soft:rgba(227,181,79,.16);
+  --danger-bg:rgba(230,80,70,.18); --danger-fg:#ff9d92;
+  --tip-bg:rgba(99,173,242,.16); --tip-fg:#8cc4f7;
+  --mech-bg:rgba(170,130,255,.16); --mech-fg:#c9a7ff;
+  --body:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--page);color:var(--fg);font:16px/1.6 var(--body);-webkit-text-size-adjust:100%}
+/* one language at a time: the <html lang> decides */
+html[lang="fr"] [lang="en"],html[lang="en"] [lang="fr"]{display:none!important}
+a{color:var(--gold);text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+img{max-width:100%;height:auto}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+h1,h2,h3{line-height:1.2;margin:0;text-wrap:balance}
+h2{font-size:clamp(26px,3.6vw,34px);font-weight:650;margin-bottom:10px}
+h3{font-size:17px;font-weight:650}
+p{margin:0 0 12px}
+.lead{color:var(--muted);max-width:62ch;margin-bottom:28px}
+section{padding:64px 0;border-top:1px solid var(--line)}
+kbd{font:600 .88em var(--body);background:var(--bar);border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 7px;white-space:nowrap}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:5;background:rgba(30,40,49,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:18px;height:56px}
+.brand{display:flex;align-items:center;gap:9px;color:var(--fg);font-weight:700;font-size:18px;text-decoration:none;margin-right:auto}
+.brand img{width:32px;height:32px}
+.top nav{display:flex;gap:18px}
+.top nav a{color:var(--muted);text-decoration:none;font-size:15px}
+.top nav a:hover{color:var(--fg)}
+.toplinks{display:flex;gap:8px;margin-left:auto}
+.tl{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 12px;border:1px solid var(--line);border-radius:999px;color:var(--fg);text-decoration:none;font-size:14px;font-weight:600;transition:border-color .15s,background .15s}
+.tl svg{width:16px;height:16px;flex:none}
+.tl-discord svg{color:#8b95f7}
+.tl-support .tl-ic{display:inline-flex;color:#f08aa0}
+.tl:hover,.tl:focus-visible{border-color:var(--gold);background:rgba(255,255,255,.03)}
+@media (max-width:680px){.tl span:not(.tl-ic){display:none}.tl{padding:0 9px}}
+.langs{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.langs button{font:600 13px var(--body);color:var(--muted);background:none;border:0;padding:7px 12px;cursor:pointer}
+.langs button[aria-pressed="true"]{background:var(--gold-soft);color:var(--gold)}
+@media (max-width:680px){.top nav{display:none}}
+
+/* hero: text left, the owner's setup on video right */
+.hero{border-top:0;padding:72px 0 80px;position:relative;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:
+    linear-gradient(90deg,rgba(30,40,49,.94) 0%,rgba(30,40,49,.86) 45%,rgba(30,40,49,.72) 100%),
+    linear-gradient(180deg,transparent 55%,#1e2831 100%),
+    url(images/hero-bg.jpg) left bottom/cover no-repeat}
+@media (max-width:860px){section{padding:48px 0}.hero{padding:40px 0 48px}}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,.74fr) minmax(0,1.26fr);gap:48px;align-items:center}
+.hero h1{font-size:clamp(32px,4.4vw,46px);font-weight:700;letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero .sub{font-size:clamp(17px,2vw,20px);color:var(--fg);margin:16px 0 26px;max-width:34ch}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:#1e2831;font-weight:700;font-size:17px;text-decoration:none;padding:13px 22px;border-radius:10px}
+.btn:hover{filter:brightness(1.08)}
+.btn svg{flex:none}
+.facts{color:var(--muted);font-size:14.5px;margin:14px 0 0}
+.promise{margin-top:26px;padding:12px 14px;border-left:3px solid var(--gold);background:var(--gold-soft);border-radius:0 8px 8px 0;font-size:15.5px;max-width:52ch}
+.promise a{white-space:nowrap;font-weight:600}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:36px}}
+
+/* video frames: a 16:10 box whose CSS placeholder shows until the clip exists */
+.clip{margin:0;min-width:0}
+.clip figcaption,.corner figcaption{color:var(--muted);font-size:13.5px;margin-top:10px;line-height:1.45}
+.vid{position:relative;aspect-ratio:16/10;border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.4);
+  background:
+    radial-gradient(120% 90% at 50% 0%,rgba(227,181,79,.10),transparent 60%),
+    repeating-linear-gradient(135deg,rgba(255,255,255,.022) 0 14px,transparent 14px 28px),
+    var(--card)}
+.vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.vid.missing video,.vid.ready .ph{display:none}
+.vid.ready{aspect-ratio:auto}
+.vid.ready video{position:static;height:auto}
+.vid img.still{display:block;width:100%;height:auto}
+.ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:16px 20px;text-align:center}
+.ph i{width:52px;height:52px;border-radius:50%;border:2px solid var(--gold);background:var(--gold-soft);position:relative;margin-bottom:8px}
+.ph i::after{content:"";position:absolute;left:19px;top:14px;border-style:solid;border-width:10px 0 10px 16px;border-color:transparent transparent transparent var(--gold)}
+.ph b{font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.ph span{font-size:15px;line-height:1.4;color:var(--fg);max-width:32ch;text-wrap:balance}
+.ph code{position:absolute;left:12px;bottom:10px;font-size:11.5px;color:var(--muted);opacity:.8}
+@media (max-width:480px){.ph i{width:42px;height:42px;margin-bottom:4px}.ph i::after{left:15px;top:11px;border-width:8px 0 8px 13px}.ph span{font-size:14px}}
+
+/* features: one per block, text and video side by side, sides alternating */
+.blocks{display:grid;gap:88px;margin-top:44px}
+.block{display:grid;grid-template-columns:minmax(0,.74fr) minmax(0,1.26fr);gap:48px;align-items:center}
+.block:nth-child(even){grid-template-columns:minmax(0,1.26fr) minmax(0,.74fr)}
+@media (min-width:861px){
+  .block.tall{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
+  .block.tall:nth-child(even){grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+  .block.tall p{max-width:54ch}
+}
+.block:nth-child(even) .clip{order:-1}
+.block h3{font-size:clamp(20px,2.4vw,24px);color:var(--gold);margin-bottom:12px}
+.block p{color:#cdd5dd;margin:0 0 10px}
+.block p:last-child{margin-bottom:0}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tag{font-size:12.5px;font-weight:600;padding:2px 9px;border-radius:10px}
+.tag.danger{background:var(--danger-bg);color:var(--danger-fg)}
+.tag.tip{background:var(--tip-bg);color:var(--tip-fg)}
+.tag.mechanic{background:var(--mech-bg);color:var(--mech-fg)}
+.also{font-size:15px;margin:56px 0 0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;max-width:none;color:#cdd5dd}
+@media (max-width:860px){
+  .blocks{gap:52px;margin-top:32px}
+  .block,.block:nth-child(even){grid-template-columns:1fr;gap:20px}
+  .block:nth-child(even) .clip{order:0}
+  .also{margin-top:44px}
+}
+
+/* screen reading */
+.reads{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}
+.corner{margin:0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px}
+.corner img{display:block;border-radius:4px}
+@media (min-width:821px){.corner{display:flex;gap:20px;align-items:center}.corner img{flex:none}.corner figcaption{margin-top:0}}
+.lists{display:grid;gap:22px}
+.lists h3{margin-bottom:8px}
+.lists ul{margin:0;padding:0;list-style:none;display:grid;gap:7px}
+.lists li{padding-left:26px;position:relative;font-size:15.5px}
+.lists li::before{position:absolute;left:0;top:0;font-weight:700}
+.yes li::before{content:"✓";color:#7fd67f}
+.no li::before{content:"✕";color:var(--danger-fg)}
+@media (max-width:820px){.reads{grid-template-columns:1fr;gap:24px}}
+
+/* install */
+.need{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:26px;font-size:15.5px}
+.need p{margin:0}
+.need p+p{margin-top:8px}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s;display:grid;gap:18px;max-width:70ch}
+.steps li{counter-increment:s;position:relative;padding-left:48px}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;background:var(--gold-soft);color:var(--gold);font-weight:700;display:grid;place-items:center}
+.steps h3{margin:3px 0 5px}
+.steps p{margin:0;color:#cdd5dd;font-size:15.5px}
+.done{margin:26px 0 0;max-width:70ch}
+
+/* FAQ */
+.faq{max-width:760px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:first-of-type{border-top:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;padding:15px 34px 15px 0;font-weight:650;font-size:16.5px;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:6px;top:11px;color:var(--gold);font-size:22px;font-weight:400}
+.faq details[open] summary::after{content:"–"}
+.faq details>div{padding:0 0 16px;color:#cdd5dd;font-size:15.5px;max-width:68ch}
+.faq details>div p:last-child{margin-bottom:0}
+.faq ol{margin:0 0 12px;padding-left:22px}
+.faq li{margin-bottom:4px}
+.faq summary:hover{color:var(--gold)}
+
+/* help + footer */
+.help{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.help.one{grid-template-columns:minmax(0,560px)}
+.help a{display:flex;flex-direction:column;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px 18px;text-decoration:none;color:var(--fg);transition:border-color .15s,transform .15s,box-shadow .15s}
+.help a:hover,.help a:focus-visible{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.help .hi{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;margin-bottom:8px;background:var(--gold-soft);color:var(--gold)}
+.help .hi svg{width:22px;height:22px}
+.help .h-discord .hi{background:rgba(88,101,242,.16);color:#8b95f7}
+.help .h-support .hi{background:rgba(232,93,117,.14);color:#f08aa0}
+.help strong{display:block;color:var(--fg);font-size:17px}
+.help span:not(.hi){color:var(--muted);font-size:14.5px;line-height:1.5;flex:1}
+.help em{font-style:normal;font-weight:600;font-size:14px;color:var(--gold);display:inline-flex;align-items:center;gap:6px;margin-top:6px}
+.help em .go{width:16px;height:16px;transition:transform .15s}
+.help a:hover em .go{transform:translateX(3px)}
+@media (prefers-reduced-motion:reduce){.help a,.help em .go{transition:none}.help a:hover{transform:none}}
+@media (max-width:680px){.help{grid-template-columns:1fr}}
+footer{border-top:1px solid var(--line);padding:28px 0 44px;color:var(--muted);font-size:13.5px}
+footer p{margin:0 0 8px;max-width:86ch}
+footer a{color:var(--muted)}
+</style>
+<script>
+// a clip that fails to load leaves its CSS placeholder visible; a loaded one hides it
+document.addEventListener("error", function (e) {
+  var t = e.target;
+  if (t && t.tagName === "SOURCE" && t.closest(".vid")) t.closest(".vid").classList.add("missing");
+}, true);
+document.addEventListener("loadeddata", function (e) {
+  var t = e.target;
+  if (t && t.tagName === "VIDEO" && t.closest(".vid")) t.closest(".vid").classList.add("ready");
+}, true);
+</script>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="images/logo.png" alt="" width="32" height="32">Dofight</a>
+    <nav lang="fr" aria-label="Sections">
+      <a href="#features">Fonctions</a><a href="#reads">Ce qu'il lit</a><a href="#install">Installation</a><a href="#faq">Questions</a>
+    </nav>
+    <nav lang="en" aria-label="Sections">
+      <a href="#features">Features</a><a href="#reads">What it reads</a><a href="#install">Install</a><a href="#faq">FAQ</a>
+    </nav>
+    <div class="toplinks">
+      <a class="tl tl-discord" href="https://discord.gg/G8G4cyvpx6" title="Discord"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg><span>Discord</span></a>
+      <a class="tl tl-support" href="https://ko-fi.com/dofight"><span class="tl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span><span lang="fr">Soutenir</span><span lang="en">Support</span></a>
+    </div>
+    <div class="langs" role="group" aria-label="Langue / Language">
+      <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- 1. Hero: what it is, the download, the promise; on the right, how the owner uses it -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1 lang="fr">L'assistant de combat pour <em>Dofus&nbsp;3</em></h1>
+      <h1 lang="en">The fight assistant for <em>Dofus&nbsp;3</em></h1>
+      <p class="sub" lang="fr">Un panneau à côté du jeu, qui te montre ce qui est dangereux chez les monstres autour de toi.</p>
+      <p class="sub" lang="en">A panel next to the game that shows what makes the monsters around you dangerous.</p>
+
+      <a class="btn" href="https://github.com/dofight/dofight/releases/latest">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v9m0 0L5 7.2M9 11l4-3.8M3 15h12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span lang="fr">Télécharger pour Windows</span><span lang="en">Download for Windows</span>
+      </a>
+      <p class="facts" lang="fr">Gratuit · Open source · Windows 10 et 11</p>
+      <p class="facts" lang="en">Free · Open source · Windows 10 and 11</p>
+
+      <p class="promise" lang="fr">Dofight regarde seulement un coin de ton écran. Il ne clique jamais, n'envoie rien au jeu et ne lit ni sa mémoire, ni ses fichiers, ni son trafic réseau. <a href="#reads">Ce qu'il lit, en détail</a></p>
+      <p class="promise" lang="en">Dofight only looks at one corner of your screen. It never clicks, never sends anything to the game, and doesn't read the game's memory, files or network traffic. <a href="#reads">What it reads, in detail</a></p>
+    </div>
+
+    <figure class="clip">
+      <div class="vid">
+        <div class="ph"><i aria-hidden="true"></i><b lang="fr">Vidéo à venir</b><b lang="en">Video coming soon</b>
+          <span lang="fr">Dofight par-dessus Ganymède, du début à la fin d'un combat</span><span lang="en">Dofight on top of Ganymède, from the start to the end of a fight</span></div>
+        <video autoplay muted loop playsinline preload="metadata" poster="videos/1-usage.jpg"><source src="videos/1-usage.mp4" type="video/mp4"></video>
+      </div>
+      <figcaption lang="fr">Dofight placé par-dessus Ganymède. Hors combat, il reste caché. Il s'ouvre tout seul au début d'un combat et se referme à la fin, sans prendre de place en plus à l'écran.</figcaption>
+      <figcaption lang="en">Dofight placed on top of Ganymède. Outside fights, it stays hidden. It opens on its own when a fight starts and closes when it ends, without taking any extra room on screen.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 2. What it does: one feature per block, each with its clip -->
+<section id="features">
+  <div class="wrap">
+    <h2 lang="fr">Ce que fait Dofight</h2>
+    <h2 lang="en">What Dofight does</h2>
+    <p class="lead" lang="fr">Pour chaque monstre autour de toi, tu vois ce qui peut te faire perdre le combat, puis ses résistances et ses sorts.</p>
+    <p class="lead" lang="en">For each monster around you, you see what can lose you the fight, then its resistances and spells.</p>
+
+    <div class="blocks">
+      <div class="block">
+        <div>
+          <h3 lang="fr">Il suit ta sous-zone ou ton donjon</h3>
+          <h3 lang="en">It follows your subarea or dungeon</h3>
+          <p lang="fr">Dès que tu entres dans une sous-zone ou un donjon, ses monstres s'affichent. Dofight lit le nom de la sous-zone en haut à gauche du jeu. En combat, le panneau s'ouvre tout seul et se referme à la fin.</p>
+          <p lang="en">Walk into a subarea or a dungeon and its monsters show up. Dofight reads the subarea name in the game's top-left corner. In a fight, the panel opens by itself and closes when the fight ends.</p>
+        </div>
+        <figure class="clip">
+      <div class="vid">
+        <div class="ph"><i aria-hidden="true"></i><b lang="fr">Vidéo à venir</b><b lang="en">Video coming soon</b>
+          <span lang="fr">Un changement de sous-zone, puis l'entrée dans un donjon</span><span lang="en">Changing subarea, then walking into a dungeon</span></div>
+        <video autoplay muted loop playsinline preload="metadata" poster="videos/2-zone.jpg"><source src="videos/2-zone.mp4" type="video/mp4"></video>
+      </div>
+      <figcaption lang="fr">La liste change quand tu changes de sous-zone.</figcaption>
+      <figcaption lang="en">The list changes when you change subarea.</figcaption>
+    </figure>
+      </div>
+      <div class="block tall">
+        <div>
+          <h3 lang="fr">Mécaniques</h3>
+          <h3 lang="en">Mechanics</h3>
+          <p lang="fr">Certains donjons et certaines zones ont une grosse mécanique, comme le cycle lunaire ou les vagues de monstres. Dofight l'explique dans une pastille «&nbsp;ⓘ&nbsp;». Survole la pastille pour un aperçu, clique dessus pour l'épingler.</p>
+          <p lang="en">Some dungeons and zones have a big mechanic, such as the lunar cycle or monster waves. Dofight explains it in an “ⓘ” chip. Hover over the chip for a preview, click it to pin it.</p>
+        </div>
+        <figure class="clip">
+      <div class="vid">
+        <div class="ph"><i aria-hidden="true"></i><b lang="fr">Vidéo à venir</b><b lang="en">Video coming soon</b>
+          <span lang="fr">La pastille «&nbsp;ⓘ&nbsp;» : survol, puis clic pour l'épingler</span><span lang="en">The “ⓘ” chip: hover, then click to pin it</span></div>
+        <video autoplay muted loop playsinline preload="metadata" poster="videos/3-chip.jpg"><source src="videos/3-chip.mp4" type="video/mp4"></video>
+      </div>
+      <figcaption lang="fr">Un aperçu au survol. Un clic l'épingle.</figcaption>
+      <figcaption lang="en">A preview on hover. A click pins it.</figcaption>
+    </figure>
+      </div>
+      <div class="block tall">
+        <div>
+          <h3 lang="fr">La fiche d'un monstre</h3>
+          <h3 lang="en">A monster's card</h3>
+          <p lang="fr">Les monstres sont repliés, avec des icônes qui signalent les dangers. Survole-en un pour un aperçu, clique pour ouvrir sa fiche : ses badges, ses résistances par élément et ses sorts. Survole un sort pour voir ce qu'il fait.</p>
+          <div class="tags" lang="fr"><span class="tag danger">Danger</span><span class="tag tip">Conseil</span><span class="tag mechanic">Mécanique</span></div>
+          <p lang="en">Monsters are collapsed, with icons that flag the dangers. Hover over one for a preview, click to open its card: its badges, its resistances by element and its spells. Hover over a spell to see what it does.</p>
+          <div class="tags" lang="en"><span class="tag danger">Danger</span><span class="tag tip">Tip</span><span class="tag mechanic">Mechanic</span></div>
+        </div>
+        <figure class="clip">
+      <div class="vid">
+        <div class="ph"><i aria-hidden="true"></i><b lang="fr">Vidéo à venir</b><b lang="en">Video coming soon</b>
+          <span lang="fr">Un monstre replié survolé, sa fiche ouverte, un sort survolé</span><span lang="en">Hovering a collapsed monster, opening its card, hovering a spell</span></div>
+        <video autoplay muted loop playsinline preload="metadata" poster="videos/4-card.jpg"><source src="videos/4-card.mp4" type="video/mp4"></video>
+      </div>
+      <figcaption lang="fr">Les trois types de badges : Danger, Conseil, Mécanique.</figcaption>
+      <figcaption lang="en">The three kinds of badges: Danger, Tip, Mechanic.</figcaption>
+    </figure>
+      </div>
+      <div class="block">
+        <div>
+          <h3 lang="fr">Mode Songe</h3>
+          <h3 lang="en">Songe mode</h3>
+          <p lang="fr">Dans un Songe, le mode Songe s'active tout seul. Hors combat, survole un groupe de monstres sur la carte et il s'affiche dans la liste, avant le combat.</p>
+          <p lang="en">Songe mode turns on by itself inside a Songe. Out of a fight, hover over a monster group on the map and it shows up in the list, before the fight.</p>
+        </div>
+        <figure class="clip">
+      <div class="vid">
+        <div class="ph"><i aria-hidden="true"></i><b lang="fr">Vidéo à venir</b><b lang="en">Video coming soon</b>
+          <span lang="fr">Un groupe survolé sur la carte s'affiche dans la liste</span><span lang="en">A group hovered on the map shows up in the list</span></div>
+        <video autoplay muted loop playsinline preload="metadata" poster="videos/5-songe.jpg"><source src="videos/5-songe.mp4" type="video/mp4"></video>
+      </div>
+      <figcaption lang="fr">Tu vois le groupe avant de lancer le combat.</figcaption>
+      <figcaption lang="en">You see the group before you start the fight.</figcaption>
+    </figure>
+      </div>
+    </div>
+    <p class="also" lang="fr"><kbd>Ctrl</kbd> + <kbd>Maj</kbd> + <kbd>D</kbd> affiche ou masque Dofight, même depuis le jeu (raccourci modifiable dans Paramètres → « Fenêtre »). Tu règles aussi le thème (assorti à ceux de Dofus), la taille du texte et l'opacité. L'interface existe en français et en anglais.</p>
+    <p class="also" lang="en"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> shows or hides Dofight, even from inside the game (change it in Settings → “Window”). You can also set the theme (they match Dofus's), the text size and the opacity. The interface comes in French and English.</p>
+  </div>
+</section>
+
+<!-- 3. The « screen reading only » promise -->
+<section id="reads">
+  <div class="wrap">
+    <h2 lang="fr">Ce que Dofight lit</h2>
+    <h2 lang="en">What Dofight reads</h2>
+    <p class="lead" lang="fr">Ce n'est ni un bot ni un mod. Environ trois fois par seconde, Dofight capture la fenêtre Dofus quand elle est au premier plan, et n'en lit que le coin en haut à gauche.</p>
+    <p class="lead" lang="en">It isn't a bot or a mod. About three times a second, Dofight captures the Dofus window while it's in the foreground, and only reads its top-left corner.</p>
+
+    <div class="reads">
+      <figure class="corner">
+        <img lang="fr" src="images/corner-fr.png" width="230" height="89" alt="Le coin en haut à gauche de Dofus : la barre d'icônes, puis le nom de la sous-zone et les coordonnées de la carte">
+        <img lang="en" src="images/corner-en.png" width="232" height="88" alt="The top-left corner of Dofus: the icon bar, then the subarea name and the map coordinates">
+        <figcaption lang="fr">Le coin que Dofight lit : la barre d'icônes (l'œil hors combat, le cœur en combat), le nom de ta sous-zone et les coordonnées de la carte.</figcaption>
+        <figcaption lang="en">The corner Dofight reads: the icon bar (an eye out of a fight, a heart in a fight), your subarea name and the map coordinates.</figcaption>
+      </figure>
+
+      <div class="lists">
+        <div class="yes">
+          <h3 lang="fr">Comment il lit</h3>
+          <ul lang="fr">
+            <li>Si Dofus est en arrière-plan, il ne capture rien.</li>
+            <li>En combat, il surveille surtout la barre d'icônes, pour voir quand le combat se termine.</li>
+            <li>En mode Songe, il lit aussi l'infobulle du groupe de monstres sous ta souris.</li>
+            <li>Les captures ne quittent jamais ton PC, c'est Windows qui y reconnaît le texte.</li>
+          </ul>
+          <h3 lang="en">How it reads</h3>
+          <ul lang="en">
+            <li>While Dofus is in the background, it captures nothing.</li>
+            <li>In a fight it mostly watches the icon bar, to see when the fight ends.</li>
+            <li>In Songe mode it also reads the tooltip of the monster group under your mouse.</li>
+            <li>The captures never leave your PC, where Windows reads the text.</li>
+          </ul>
+        </div>
+        <div class="no">
+          <h3 lang="fr">Ce qu'il ne fait jamais</h3>
+          <ul lang="fr">
+            <li>Cliquer ou jouer à ta place.</li>
+            <li>Envoyer quoi que ce soit au jeu, ou le modifier.</li>
+            <li>Lire la mémoire du jeu, ses fichiers ou son trafic réseau.</li>
+          </ul>
+          <h3 lang="en">What it never does</h3>
+          <ul lang="en">
+            <li>Click or play for you.</li>
+            <li>Send anything to the game, or change it.</li>
+            <li>Read the game's memory, its files or its network traffic.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Install -->
+<section id="install">
+  <div class="wrap">
+    <h2 lang="fr">Installation</h2>
+    <h2 lang="en">Install</h2>
+    <p class="lead" lang="fr">Un installateur à lancer, puis deux réglages à faire dans Dofus.</p>
+    <p class="lead" lang="en">Run the installer, then change two settings in Dofus.</p>
+
+    <div class="need" lang="fr">
+      <p><strong>Avant de commencer :</strong> Windows 10 ou 11, et Dofus 3 (en français ou en anglais).</p>
+      <p>Le français doit faire partie des langues de Windows (Paramètres Windows → Heure et langue → Langue et région) : Dofight s'en sert pour lire le texte à l'écran. Si ton Windows est en français, tu n'as rien à faire.</p>
+    </div>
+    <div class="need" lang="en">
+      <p><strong>What you need:</strong> Windows 10 or 11, and Dofus 3 (French or English client).</p>
+      <p>Windows needs French in its language list (Windows Settings → Time &amp; language → Language &amp; region → Add a language → Français). Dofight uses it to read the text on screen, even with the game in English. You don't have to switch Windows to French.</p>
+    </div>
+
+    <ol class="steps" lang="fr">
+      <li><h3>Télécharge l'installateur</h3>
+        <p>Sur la page de la <a href="https://github.com/dofight/dofight/releases/latest">dernière version</a>, prends le fichier <code>Dofight_…_x64-setup.exe</code> (les autres fichiers servent aux mises à jour).</p></li>
+      <li><h3>Lance-le</h3>
+        <p>Si Windows affiche « Windows a protégé votre ordinateur », clique sur « Informations complémentaires », puis sur « Exécuter quand même » : Dofight est un petit projet, qui n'a pas de certificat payant.</p></li>
+      <li><h3>Dans Dofus : affiche les coordonnées</h3>
+        <p>Active Options → Interface → Cartes → « Afficher les coordonnées de la carte ». Dofight cherche le nom de ta sous-zone juste au-dessus des coordonnées : sans elles, il ne sait pas où tu es.</p></li>
+      <li><h3>Dans Dofus : garde la barre d'icônes dépliée</h3>
+        <p>Celle en haut à gauche du jeu. Dofight la surveille pour savoir quand un combat commence : il s'ouvre alors tout seul et se referme à la fin.</p></li>
+    </ol>
+    <ol class="steps" lang="en">
+      <li><h3>Download the installer</h3>
+        <p>On the <a href="https://github.com/dofight/dofight/releases/latest">latest release</a> page, download <code>Dofight_…_x64-setup.exe</code> (the other files are for updates).</p></li>
+      <li><h3>Run it</h3>
+        <p>If Windows shows “Windows protected your PC”, click “More info”, then “Run anyway”: Dofight is a small project without a paid certificate.</p></li>
+      <li><h3>In Dofus: show the coordinates</h3>
+        <p>Turn on “Show map coordinates” in the game options. Dofight looks for your subarea name just above the coordinates: without them, it can't tell where you are.</p></li>
+      <li><h3>In Dofus: keep the icon bar expanded</h3>
+        <p>The one in the game's top-left corner. Dofight watches it to know when a fight starts: it then opens on its own and closes when the fight ends.</p></li>
+    </ol>
+
+    <p class="done" lang="fr">Lance Dofus. La première fois, le guide « Bien démarrer » te montre où regarder et vérifie les deux réglages dans ton jeu. Tu le retrouves ensuite dans le menu ☰. Les mises à jour se font toutes seules.</p>
+    <p class="done" lang="en">Start Dofus. The first time, the “Getting started” guide shows you where to look and checks both settings in your game. It stays in the ☰ menu afterwards. Updates install themselves. The interface starts in French: switch to English in Paramètres → Langue.</p>
+  </div>
+</section>
+
+<!-- 5. FAQ (the app's ☰ « Aide » links here: /#faq, or one question: /#faq-nothing) -->
+<section id="faq">
+  <div class="wrap">
+    <h2 lang="fr">Questions fréquentes</h2>
+    <h2 lang="en">Frequently asked questions</h2>
+
+    <div class="faq" lang="fr">
+      <details id="faq-allowed"><summary>C'est autorisé ?</summary><div>
+        <p>Dofight n'est ni un bot ni un mod : il ne clique pas, n'envoie rien au jeu et ne modifie rien. Il lit uniquement le coin en haut à gauche de la fenêtre Dofus et affiche des informations publiques (données du jeu, guides).</p>
+        <p>C'est un outil fait par des fans, sans lien avec Ankama, qui ne l'a ni validé ni approuvé : tu l'utilises sous ta propre responsabilité.</p></div></details>
+      <details id="faq-reads"><summary>Que lit Dofight, et quand ?</summary><div>
+        <p>Le coin en haut à gauche de la fenêtre Dofus (la barre d'icônes, le nom de la sous-zone et les coordonnées de la carte), et seulement quand Dofus est au premier plan. En combat, il surveille surtout la barre d'icônes. En mode Songe, il lit aussi l'infobulle du groupe de monstres sous ta souris.</p>
+        <p>Tu peux tout couper dans Paramètres → « Lecture de l'écran ». <a href="#reads">Le détail est plus haut.</a></p></div></details>
+      <details id="faq-internet"><summary>Qu'est-ce que Dofight envoie sur Internet ?</summary><div>
+        <p>Rien pendant que tu joues : pas de compte, pas de statistiques. Il contacte GitHub pour ses mises à jour.</p>
+        <p>Si tu envoies une suggestion, il transmet ton message et, si tu laisses les deux options activées, l'état de Dofight (sous-zone lue, combat, version, paramètres) et son journal des 10 dernières minutes. Jamais de capture d'écran ni de chat, ni de nom de personnage, de guilde ou de compte.</p></div></details>
+      <details id="faq-windows"><summary>Windows affiche « Windows a protégé votre ordinateur »</summary><div>
+        <p>C'est normal : Dofight est un petit projet, qui n'a pas de certificat payant. Clique sur « Informations complémentaires », puis sur « Exécuter quand même ». Le code est public : tu peux le lire sur <a href="https://github.com/dofight/dofight">GitHub</a>.</p></div></details>
+      <details id="faq-nothing"><summary>Dofight n'affiche rien, ou pas les bons monstres</summary><div>
+        <p>Vérifie, dans l'ordre :</p>
+        <ol><li>Dans Dofus, l'option « Afficher les coordonnées de la carte » est activée (Options → Interface → Cartes).</li>
+        <li>La barre d'icônes en haut à gauche du jeu est dépliée.</li>
+        <li>Le français fait partie des langues de Windows (Paramètres Windows → Heure et langue → Langue et région).</li>
+        <li>L'interrupteur « Lecture de l'écran » est allumé dans les paramètres de Dofight.</li></ol>
+        <p>Le guide « Bien démarrer » (menu ☰) te dit si les deux réglages du jeu sont détectés.</p></div></details>
+      <details id="faq-accounts"><summary>Je joue sur plusieurs comptes</summary><div>
+        <p>Choisis la fenêtre Dofus à lire dans Paramètres → « Lecture de l'écran ».</p></div></details>
+      <details id="faq-shortcut"><summary>Le raccourci Ctrl+Maj+D ne fait rien</summary><div>
+        <p>Il est sans doute déjà utilisé par une autre application. Choisis-en un autre dans Paramètres → « Fenêtre » : Ctrl, Alt ou Maj (avec Ctrl ou Alt) + une touche, ou une touche de fonction (F1 à F12).</p></div></details>
+      <details id="faq-songe"><summary>Comment marche le mode Songe ?</summary><div>
+        <p>Dans un Songe, le mode Songe s'active tout seul. Le bouton « Songe » sert à l'activer ou à le couper à la main. Hors combat, survole un groupe de monstres sur la carte et il s'affiche dans la liste, avant le combat.</p></div></details>
+      <details id="faq-updates"><summary>Comment mettre Dofight à jour ?</summary><div>
+        <p>Rien à faire, les mises à jour se font toutes seules. Ce qui change à chaque version est annoncé sur le <a href="https://discord.gg/G8G4cyvpx6">Discord</a> et listé sur <a href="https://github.com/dofight/dofight/releases">GitHub</a>.</p></div></details>
+      <details id="faq-suggestion"><summary>J'ai trouvé une erreur, ou j'ai une idée</summary><div>
+        <p>Le bouton « Envoyer une suggestion », en bas de la liste, envoie ton message à l'équipe, de façon anonyme. Si tu veux une réponse, passe par le <a href="https://discord.gg/G8G4cyvpx6">Discord</a>.</p></div></details>
+      <details id="faq-uninstall"><summary>Comment désinstaller Dofight ?</summary><div>
+        <p>Paramètres Windows → Applications → Applications installées → Dofight → Désinstaller.</p></div></details>
+    </div>
+
+    <div class="faq" lang="en">
+      <details data-q="faq-allowed"><summary>Is it allowed?</summary><div>
+        <p>Dofight isn't a bot or a mod: it doesn't click, sends nothing to the game and changes nothing. It only reads the top-left corner of the Dofus window and shows public information (game data, guides).</p>
+        <p>It's a fan-made tool, not affiliated with, reviewed or approved by Ankama: you use it at your own risk.</p></div></details>
+      <details data-q="faq-reads"><summary>What does Dofight read, and when?</summary><div>
+        <p>The top-left corner of the Dofus window (the icon bar, the subarea name and the map coordinates), and only while Dofus is in the foreground. In a fight it mostly watches the icon bar. In Songe mode it also reads the tooltip of the monster group under your mouse.</p>
+        <p>You can turn it all off in Settings → “Screen reading”. <a href="#reads">The details are above.</a></p></div></details>
+      <details data-q="faq-internet"><summary>What does Dofight send over the Internet?</summary><div>
+        <p>Nothing while you play: no account, no statistics. It contacts GitHub for its updates.</p>
+        <p>If you send a suggestion, it sends your message and, if you leave both switches on, Dofight's state (subarea read, fight, version, settings) and its log of the last 10 minutes. Never a screenshot, the chat, or a character, guild or account name.</p></div></details>
+      <details data-q="faq-windows"><summary>Windows shows “Windows protected your PC”</summary><div>
+        <p>That's normal: Dofight is a small project without a paid certificate. Click “More info”, then “Run anyway”. The code is public: you can read it on <a href="https://github.com/dofight/dofight">GitHub</a>.</p></div></details>
+      <details data-q="faq-nothing"><summary>Dofight shows nothing, or the wrong monsters</summary><div>
+        <p>Check, in this order:</p>
+        <ol><li>In Dofus, “Show map coordinates” is on in the game options.</li>
+        <li>The icon bar in the game's top-left corner is expanded.</li>
+        <li>French is among your Windows languages (Windows Settings → Time &amp; language → Language &amp; region), even with the game in English.</li>
+        <li>The “Screen reading” switch is on in Dofight's settings.</li></ol>
+        <p>The “Getting started” guide (☰ menu) tells you whether both game settings are detected.</p></div></details>
+      <details data-q="faq-accounts"><summary>I play several accounts</summary><div>
+        <p>Pick the Dofus window to read in Settings → “Screen reading”.</p></div></details>
+      <details data-q="faq-shortcut"><summary>The Ctrl+Shift+D shortcut does nothing</summary><div>
+        <p>Another app is probably using it. Pick another one in Settings → “Window”: Ctrl, Alt or Shift (with Ctrl or Alt) + a key, or a function key (F1 to F12).</p></div></details>
+      <details data-q="faq-songe"><summary>How does Songe mode work?</summary><div>
+        <p>Songe mode turns on by itself inside a Songe. The “Songe” button switches it on or off by hand. Out of a fight, hover over a monster group on the map and it shows up in the list, before the fight.</p></div></details>
+      <details data-q="faq-english"><summary>Is everything in English?</summary><div>
+        <p>The interface, the badges, the game data and the summaries are available in English: switch in Paramètres → Langue (the app starts in French). The guides the summaries link to are in French.</p></div></details>
+      <details data-q="faq-updates"><summary>How do I update Dofight?</summary><div>
+        <p>Nothing: updates install themselves. What changes in each version is announced on the <a href="https://discord.gg/G8G4cyvpx6">Discord</a> and listed on <a href="https://github.com/dofight/dofight/releases">GitHub</a>.</p></div></details>
+      <details data-q="faq-suggestion"><summary>I found a mistake, or I have an idea</summary><div>
+        <p>The “Send a suggestion” button, at the bottom of the list, sends your message anonymously to the team. For a reply, ask on the <a href="https://discord.gg/G8G4cyvpx6">Discord</a>.</p></div></details>
+      <details data-q="faq-uninstall"><summary>How do I uninstall Dofight?</summary><div>
+        <p>Windows Settings → Apps → Installed apps → Dofight → Uninstall.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Community: Discord, Ko-fi, source -->
+</main>
+
+<footer>
+  <div class="wrap">
+    <p lang="fr">Dofight est un outil fait par des fans, sans lien avec Ankama. Dofus, ses noms, ses images et ses données appartiennent à Ankama Games.</p>
+    <p lang="en">Dofight is a fan-made tool, not affiliated with Ankama. Dofus, its names, images and game data belong to Ankama Games.</p>
+    <p lang="fr">Données et icônes du jeu : <a href="https://dofensive.com">Dofensive</a>, <a href="https://dofusdb.fr">DofusDB</a>. Résumés de donjons rédigés avec l'aide de <a href="https://www.dofuspourlesnoobs.com">Dofus pour les Noobs</a>.</p>
+    <p lang="en">Game data and icons: <a href="https://dofensive.com">Dofensive</a>, <a href="https://dofusdb.fr">DofusDB</a>. Dungeon summaries written with the help of <a href="https://www.dofuspourlesnoobs.com">Dofus pour les Noobs</a>.</p>
+    <p lang="fr">Ce site n'a ni cookies, ni statistiques, ni contenu chargé depuis un autre site.</p>
+    <p lang="en">This site has no cookies, no analytics, and loads nothing from another site.</p>
+  </div>
+</footer>
+
+<script>
+// FR/EN switch: ?lang=, then the last choice, then the browser's language (French by default without JS).
+(function () {
+  var root = document.documentElement;
+  var titles = { fr: "Dofight · L'assistant de combat pour Dofus 3", en: "Dofight · The fight assistant for Dofus 3" };
+  function set(lang, save) {
+    if (lang !== "fr" && lang !== "en") return;
+    root.lang = lang;
+    document.title = titles[lang];
+    document.querySelectorAll(".langs button").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.lang === lang));
+    });
+    if (save) try { localStorage.setItem("lang", lang); } catch (e) {}
+  }
+  var saved = null;
+  try { saved = localStorage.getItem("lang"); } catch (e) {}
+  var asked = new URLSearchParams(location.search).get("lang");
+  set(asked || saved || (/^fr\b/i.test(navigator.language || "fr") ? "fr" : "en"), false);
+  document.querySelectorAll(".langs button").forEach(function (b) {
+    b.addEventListener("click", function () { set(b.dataset.lang, true); });
+  });
+  // one anchor per question (#faq-allowed…): the French item carries the id, its English twin data-q
+  function openFromHash() {
+    var id = location.hash.slice(1);
+    if (!/^faq-[a-z]+$/.test(id)) return;
+    var d = root.lang === "en" ? document.querySelector('[data-q="' + id + '"]') : document.getElementById(id);
+    if (d) { d.open = true; d.scrollIntoView(); }
+  }
+  // reduced motion: no autoplay, the poster with controls instead
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.querySelectorAll(".vid video").forEach(function (v) {
+      v.removeAttribute("autoplay"); v.autoplay = false; v.pause(); v.controls = true;
+    });
+  }
+  addEventListener("hashchange", openFromHash);
+  openFromHash();
+})();
+</script>
+</body>
+</html>
