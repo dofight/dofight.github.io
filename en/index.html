@@ -361,8 +361,8 @@ document.addEventListener("loadeddata", function (e) {
   <div class="wrap">
     <h2 lang="fr">Ce que Dofight lit</h2>
     <h2 lang="en">What Dofight reads</h2>
-    <p class="lead" lang="fr">Ce n'est ni un bot ni un mod. Environ trois fois par seconde, Dofight capture la fenêtre Dofus quand elle est au premier plan, et n'en lit que le coin en haut à gauche.</p>
-    <p class="lead" lang="en">It isn't a bot or a mod. About three times a second, Dofight captures the Dofus window while it's in the foreground, and only reads its top-left corner.</p>
+    <p class="lead" lang="fr">Ce n'est ni un bot ni un mod. Environ trois fois par seconde, Dofight capture la fenêtre Dofus quand elle est au premier plan, et n'en lit que le coin en haut à gauche (et, en mode Songe, une zone autour de ta souris).</p>
+    <p class="lead" lang="en">It isn't a bot or a mod. About three times a second, Dofight captures the Dofus window while it's in the foreground, and only reads its top-left corner (and, in Songe mode, an area around your mouse).</p>
 
     <div class="reads">
       <figure class="corner">
@@ -377,15 +377,15 @@ document.addEventListener("loadeddata", function (e) {
           <h3 lang="fr">Comment il lit</h3>
           <ul lang="fr">
             <li>Si Dofus est en arrière-plan, il ne capture rien.</li>
-            <li>En combat, il surveille surtout la barre d'icônes, pour voir quand le combat se termine.</li>
-            <li>En mode Songe, il lit aussi l'infobulle du groupe de monstres sous ta souris.</li>
+            <li>En combat, il surveille surtout la barre d'icônes, pour voir quand le combat se termine ; s'il ne connaît pas encore ta sous-zone (Dofight ouvert en plein combat), il relit le nom de la sous-zone plus souvent, jusqu'à la trouver.</li>
+            <li>En mode Songe, hors combat, quand ta souris s'arrête, il lit aussi une zone autour d'elle (environ 800 × 700 pixels, surtout au-dessus) pour y trouver l'infobulle du groupe de monstres survolé ; il n'en retient que le texte de cette infobulle.</li>
             <li>Les captures ne quittent jamais ton PC, c'est Windows qui y reconnaît le texte.</li>
           </ul>
           <h3 lang="en">How it reads</h3>
           <ul lang="en">
             <li>While Dofus is in the background, it captures nothing.</li>
-            <li>In a fight it mostly watches the icon bar, to see when the fight ends.</li>
-            <li>In Songe mode it also reads the tooltip of the monster group under your mouse.</li>
+            <li>In a fight it mostly watches the icon bar, to see when the fight ends; if it doesn't know your subarea yet (Dofight opened mid-fight), it re-reads the subarea name more often until it finds it.</li>
+            <li>In Songe mode, out of a fight, when your mouse stops, it also reads an area around it (about 800 × 700 pixels, mostly above it) to find the tooltip of the hovered monster group; it keeps only that tooltip's text.</li>
             <li>The captures never leave your PC, where Windows reads the text.</li>
           </ul>
         </div>
@@ -459,11 +459,11 @@ document.addEventListener("loadeddata", function (e) {
 
     <div class="faq" lang="fr">
       <details id="faq-allowed"><summary>C'est autorisé ?</summary><div>
-        <p>Dofight n'est ni un bot ni un mod : il ne clique pas, n'envoie rien au jeu et ne modifie rien. Il lit uniquement le coin en haut à gauche de la fenêtre Dofus et affiche des informations publiques (données du jeu, guides).</p>
+        <p>Dofight n'est ni un bot ni un mod : il ne clique pas, n'envoie rien au jeu et ne modifie rien. Il lit uniquement le coin en haut à gauche de la fenêtre Dofus (et, en mode Songe, une zone autour de ta souris) et affiche des informations publiques (données du jeu, guides).</p>
         <p>C'est un outil fait par des fans, sans lien avec Ankama, qui ne l'a ni validé ni approuvé : tu l'utilises sous ta propre responsabilité.</p></div></details>
       <details id="faq-reads"><summary>Que lit Dofight, et quand ?</summary><div>
-        <p>Le coin en haut à gauche de la fenêtre Dofus (la barre d'icônes, le nom de la sous-zone et les coordonnées de la carte), et seulement quand Dofus est au premier plan. En combat, il surveille surtout la barre d'icônes. En mode Songe, il lit aussi l'infobulle du groupe de monstres sous ta souris.</p>
-        <p>Tu peux tout couper dans Paramètres → « Lecture de l'écran ». <a href="#reads">Le détail est plus haut.</a></p></div></details>
+        <p>Le coin en haut à gauche de la fenêtre Dofus (la barre d'icônes, le nom de la sous-zone et les coordonnées de la carte), et seulement quand Dofus est au premier plan. En combat, il surveille surtout la barre d'icônes ; s'il ne connaît pas encore ta sous-zone (Dofight ouvert en plein combat), il relit le nom de la sous-zone plus souvent, jusqu'à la trouver. En mode Songe, hors combat, quand ta souris s'arrête, il lit aussi une zone autour d'elle (environ 800 × 700 pixels, surtout au-dessus) pour y trouver l'infobulle du groupe de monstres survolé ; il n'en retient que le texte de cette infobulle.</p>
+        <p>Tu peux tout couper dans Paramètres → « Lecture de l'écran » : Dofight ne capture alors la fenêtre Dofus que lorsque tu cliques sur « Scanner ma sous-zone ». <a href="#reads">Le détail est plus haut.</a></p></div></details>
       <details id="faq-internet"><summary>Qu'est-ce que Dofight envoie sur Internet ?</summary><div>
         <p>Rien pendant que tu joues : pas de compte, pas de statistiques. Il contacte GitHub pour ses mises à jour.</p>
         <p>Si tu envoies une suggestion, il transmet ton message et, si tu laisses les deux options activées, l'état de Dofight (sous-zone lue, combat, version, paramètres) et son journal des 10 dernières minutes. Jamais de capture d'écran ni de chat, ni de nom de personnage, de guilde ou de compte.</p></div></details>
@@ -492,11 +492,11 @@ document.addEventListener("loadeddata", function (e) {
 
     <div class="faq" lang="en">
       <details data-q="faq-allowed"><summary>Is it allowed?</summary><div>
-        <p>Dofight isn't a bot or a mod: it doesn't click, sends nothing to the game and changes nothing. It only reads the top-left corner of the Dofus window and shows public information (game data, guides).</p>
+        <p>Dofight isn't a bot or a mod: it doesn't click, sends nothing to the game and changes nothing. It only reads the top-left corner of the Dofus window (and, in Songe mode, an area around your mouse) and shows public information (game data, guides).</p>
         <p>It's a fan-made tool, not affiliated with, reviewed or approved by Ankama: you use it at your own risk.</p></div></details>
       <details data-q="faq-reads"><summary>What does Dofight read, and when?</summary><div>
-        <p>The top-left corner of the Dofus window (the icon bar, the subarea name and the map coordinates), and only while Dofus is in the foreground. In a fight it mostly watches the icon bar. In Songe mode it also reads the tooltip of the monster group under your mouse.</p>
-        <p>You can turn it all off in Settings → “Screen reading”. <a href="#reads">The details are above.</a></p></div></details>
+        <p>The top-left corner of the Dofus window (the icon bar, the subarea name and the map coordinates), and only while Dofus is in the foreground. In a fight it mostly watches the icon bar; if it doesn't know your subarea yet (Dofight opened mid-fight), it re-reads the subarea name more often until it finds it. In Songe mode, out of a fight, when your mouse stops, it also reads an area around it (about 800 × 700 pixels, mostly above it) to find the tooltip of the hovered monster group; it keeps only that tooltip's text.</p>
+        <p>You can turn it all off in Settings → “Screen reading”: Dofight then captures the Dofus window only when you click “Scan my subarea”. <a href="#reads">The details are above.</a></p></div></details>
       <details data-q="faq-internet"><summary>What does Dofight send over the Internet?</summary><div>
         <p>Nothing while you play: no account, no statistics. It contacts GitHub for its updates.</p>
         <p>If you send a suggestion, it sends your message and, if you leave both switches on, Dofight's state (subarea read, fight, version, settings) and its log of the last 10 minutes. Never a screenshot, the chat, or a character, guild or account name.</p></div></details>
