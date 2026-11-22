@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- seo: written by build.py -->
 <title>Dofight · L'assistant de combat pour Dofus 3</title>
-<meta name="description" content="Dofight : un panneau à côté de Dofus 3 qui te montre ce qui est dangereux chez les monstres autour de toi. Gratuit, open source, lecture de l'écran uniquement.">
+<meta name="description" content="Dofight : un panneau à côté de Dofus 3 qui te montre le détail des monstres autour de toi. Gratuit, open source, lecture de l'écran uniquement.">
 <link rel="canonical" href="https://dofight.github.io/">
 <link rel="alternate" hreflang="fr" href="https://dofight.github.io/">
 <link rel="alternate" hreflang="en" href="https://dofight.github.io/en/">
@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Dofight">
 <meta property="og:title" content="Dofight · L'assistant de combat pour Dofus 3">
-<meta property="og:description" content="Dofight : un panneau à côté de Dofus 3 qui te montre ce qui est dangereux chez les monstres autour de toi. Gratuit, open source, lecture de l'écran uniquement.">
+<meta property="og:description" content="Dofight : un panneau à côté de Dofus 3 qui te montre le détail des monstres autour de toi. Gratuit, open source, lecture de l'écran uniquement.">
 <meta property="og:url" content="https://dofight.github.io/">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:locale:alternate" content="en_US">
@@ -24,7 +24,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#1e2831">
 <meta name="google-site-verification" content="2zyhJK7FzVzOcl51zQkoh4fyFUQJCYZ-jEqQzTPVTx8">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Dofight", "description": "Dofight : un panneau à côté de Dofus 3 qui te montre ce qui est dangereux chez les monstres autour de toi. Gratuit, open source, lecture de l'écran uniquement.", "url": "https://dofight.github.io/", "image": "https://dofight.github.io/images/og.jpg", "applicationCategory": "GameApplication", "operatingSystem": "Windows 10, Windows 11", "downloadUrl": "https://github.com/dofight/dofight/releases/latest", "license": "https://github.com/dofight/dofight/blob/main/LICENSE", "inLanguage": ["fr", "en"], "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "sameAs": ["https://github.com/dofight/dofight", "https://discord.gg/G8G4cyvpx6"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Dofight", "description": "Dofight : un panneau à côté de Dofus 3 qui te montre le détail des monstres autour de toi. Gratuit, open source, lecture de l'écran uniquement.", "url": "https://dofight.github.io/", "image": "https://dofight.github.io/images/og.jpg", "applicationCategory": "GameApplication", "operatingSystem": "Windows 10, Windows 11, macOS 14 or later", "downloadUrl": "https://github.com/dofight/dofight/releases/latest", "license": "https://github.com/dofight/dofight/blob/main/LICENSE", "inLanguage": ["fr", "en"], "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "sameAs": ["https://github.com/dofight/dofight", "https://discord.gg/G8G4cyvpx6"]}</script>
 <!-- /seo -->
 <link rel="icon" href="/images/favicon.png">
 <style>
@@ -245,15 +245,15 @@ document.addEventListener("loadeddata", function (e) {
     <div>
       <h1 lang="fr">L'assistant de combat pour <em>Dofus&nbsp;3</em></h1>
       <h1 lang="en">The fight assistant for <em>Dofus&nbsp;3</em></h1>
-      <p class="sub" lang="fr">Un panneau à côté du jeu, qui te montre ce qui est dangereux chez les monstres autour de toi.</p>
-      <p class="sub" lang="en">A panel next to the game that shows what makes the monsters around you dangerous.</p>
+      <p class="sub" lang="fr">Un panneau à côté du jeu qui te montre le détail des monstres autour de toi.</p>
+      <p class="sub" lang="en">A panel next to the game that shows you the details of the monsters around you.</p>
 
       <a class="btn" href="https://github.com/dofight/dofight/releases/latest">
         <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v9m0 0L5 7.2M9 11l4-3.8M3 15h12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span lang="fr">Télécharger pour Windows</span><span lang="en">Download for Windows</span>
+        <span lang="fr">Télécharger pour Windows ou Mac</span><span lang="en">Download for Windows or Mac</span>
       </a>
-      <p class="facts" lang="fr">Gratuit · Open source · Windows 10 et 11</p>
-      <p class="facts" lang="en">Free · Open source · Windows 10 and 11</p>
+      <p class="facts" lang="fr">Gratuit · Open source · Windows 10 et 11 · macOS 14 et plus</p>
+      <p class="facts" lang="en">Free · Open source · Windows 10 and 11 · macOS 14 and later</p>
 
       <p class="promise" lang="fr">Dofight regarde seulement un coin de ton écran. Il ne clique jamais, n'envoie rien au jeu et ne lit ni sa mémoire, ni ses fichiers, ni son trafic réseau. <a href="#reads">Ce qu'il lit, en détail</a></p>
       <p class="promise" lang="en">Dofight only looks at one corner of your screen. It never clicks, never sends anything to the game, and doesn't read the game's memory, files or network traffic. <a href="#reads">What it reads, in detail</a></p>
@@ -276,8 +276,8 @@ document.addEventListener("loadeddata", function (e) {
   <div class="wrap">
     <h2 lang="fr">Ce que fait Dofight</h2>
     <h2 lang="en">What Dofight does</h2>
-    <p class="lead" lang="fr">Pour chaque monstre autour de toi, tu vois ce qui peut te faire perdre le combat, puis ses résistances et ses sorts.</p>
-    <p class="lead" lang="en">For each monster around you, you see what can lose you the fight, then its resistances and spells.</p>
+    <p class="lead" lang="fr">Pour chaque monstre autour de toi, tu vois son détail : ce qui est dangereux, ses résistances et ses sorts.</p>
+    <p class="lead" lang="en">For each monster around you, you see its details: what is dangerous, its resistances and its spells.</p>
 
     <div class="blocks">
       <div class="block">
@@ -379,14 +379,14 @@ document.addEventListener("loadeddata", function (e) {
             <li>Si Dofus est en arrière-plan, il ne capture rien.</li>
             <li>En combat, il surveille surtout la barre d'icônes, pour voir quand le combat se termine ; s'il ne connaît pas encore ta sous-zone (Dofight ouvert en plein combat), il relit le nom de la sous-zone plus souvent, jusqu'à la trouver.</li>
             <li>En mode Songes, hors combat, quand ta souris s'arrête, il cherche les infobulles de groupes de monstres dans toute la fenêtre du jeu : elles s'affichent où se trouve le groupe, et le jeu peut toutes les montrer d'un coup. Il n'en retient que leur texte, et rien d'autre de l'écran n'est gardé ni envoyé : ni le tchat, ni les noms de joueurs, de guilde ou d'alliance, ni ton inventaire.</li>
-            <li>Les captures ne quittent jamais ton PC, c'est Windows qui y reconnaît le texte.</li>
+            <li>Les captures ne quittent jamais ton ordinateur : c'est Windows, ou macOS sur Mac, qui y reconnaît le texte.</li>
           </ul>
           <h3 lang="en">How it reads</h3>
           <ul lang="en">
             <li>While Dofus is in the background, it captures nothing.</li>
             <li>In a fight it mostly watches the icon bar, to see when the fight ends; if it doesn't know your subarea yet (Dofight opened mid-fight), it re-reads the subarea name more often until it finds it.</li>
             <li>In Dreams mode, out of a fight, when your mouse stops, it looks for monster group tooltips anywhere in the game window: they appear where the group is, and the game can show them all at once. It keeps only their text, and nothing else on screen is kept or sent: not the chat, not player, guild or alliance names, not your inventory.</li>
-            <li>The captures never leave your PC, where Windows reads the text.</li>
+            <li>The captures never leave your computer, where Windows, or macOS on a Mac, reads the text.</li>
           </ul>
         </div>
         <div class="no">
@@ -413,33 +413,35 @@ document.addEventListener("loadeddata", function (e) {
   <div class="wrap">
     <h2 lang="fr">Installation</h2>
     <h2 lang="en">Install</h2>
-    <p class="lead" lang="fr">Un installateur à lancer, puis deux réglages à faire dans Dofus.</p>
-    <p class="lead" lang="en">Run the installer, then change two settings in Dofus.</p>
+    <p class="lead" lang="fr">Dofight à installer, puis deux réglages à faire dans Dofus.</p>
+    <p class="lead" lang="en">Install Dofight, then change two settings in Dofus.</p>
 
     <div class="need" lang="fr">
-      <p><strong>Avant de commencer :</strong> Windows 10 ou 11, et Dofus 3 (en français ou en anglais).</p>
-      <p>Le français doit faire partie des langues de Windows (Paramètres Windows → Heure et langue → Langue et région) : Dofight s'en sert pour lire le texte à l'écran. Si ton Windows est en français, tu n'as rien à faire.</p>
+      <p><strong>Avant de commencer :</strong> Dofus 3 (en français ou en anglais), sur Windows 10 ou 11, ou sur un Mac avec macOS 14 ou plus récent.</p>
+      <p>Sur Windows, le français doit faire partie des langues de Windows (Paramètres Windows → Heure et langue → Langue et région) : Dofight s'en sert pour lire le texte à l'écran. Si ton Windows est en français, tu n'as rien à faire. Sur Mac, il n'y a rien à ajouter.</p>
     </div>
     <div class="need" lang="en">
-      <p><strong>What you need:</strong> Windows 10 or 11, and Dofus 3 (French or English client).</p>
-      <p>Windows needs French in its language list (Windows Settings → Time &amp; language → Language &amp; region → Add a language → Français). Dofight uses it to read the text on screen, even with the game in English. You don't have to switch Windows to French.</p>
+      <p><strong>What you need:</strong> Dofus 3 (French or English client), on Windows 10 or 11, or on a Mac with macOS 14 or later.</p>
+      <p>On Windows, French must be in the language list (Windows Settings → Time &amp; language → Language &amp; region → Add a language → Français). Dofight uses it to read the text on screen, even with the game in English. You don't have to switch Windows to French. On a Mac, there is nothing to add.</p>
     </div>
 
     <ol class="steps" lang="fr">
-      <li><h3>Télécharge l'installateur</h3>
-        <p>Sur la page de la <a href="https://github.com/dofight/dofight/releases/latest">dernière version</a>, prends le fichier <code>Dofight_…_x64-setup.exe</code> (les autres fichiers servent aux mises à jour).</p></li>
-      <li><h3>Lance-le</h3>
-        <p>Si Windows affiche « Windows a protégé votre ordinateur », clique sur « Informations complémentaires », puis sur « Exécuter quand même » : Dofight est un petit projet, qui n'a pas de certificat payant.</p></li>
+      <li><h3>Télécharge Dofight</h3>
+        <p>Sur la page de la <a href="https://github.com/dofight/dofight/releases/latest">dernière version</a>, prends le fichier <code>Dofight_…_x64-setup.exe</code> sur Windows, ou <code>Dofight_…_universal.dmg</code> sur Mac (Intel et Apple Silicon). Les autres fichiers servent aux mises à jour.</p></li>
+      <li><h3>Installe-le</h3>
+        <p><strong>Sur Windows</strong>, si Windows affiche « Windows a protégé votre ordinateur », clique sur « Informations complémentaires », puis sur « Exécuter quand même » : Dofight est un petit projet, qui n'a pas de certificat payant.</p>
+        <p><strong>Sur Mac</strong>, ouvre le <code>.dmg</code> et glisse Dofight dans Applications. Lance Dofight une première fois : macOS refuse de l'ouvrir, pour la même raison. Ferme le message, puis ouvre Réglages Système → Confidentialité et sécurité, descends jusqu'à « Sécurité » et clique sur « Ouvrir quand même ». Autorise ensuite Dofight dans Réglages Système → Confidentialité et sécurité → Enregistrement de l'écran (« Enregistrement de l'écran et de l'audio système » sur macOS 15 et plus récent), puis quitte et rouvre-le.</p></li>
       <li><h3>Dans Dofus : affiche les coordonnées</h3>
         <p>Active Options → Interface → Cartes → « Afficher les coordonnées de la carte ». Dofight cherche le nom de ta sous-zone juste au-dessus des coordonnées : sans elles, il ne sait pas où tu es.</p></li>
       <li><h3>Dans Dofus : garde la barre d'icônes dépliée</h3>
         <p>Celle en haut à gauche du jeu. Dofight la surveille pour savoir quand un combat commence : il s'ouvre alors tout seul et se referme à la fin.</p></li>
     </ol>
     <ol class="steps" lang="en">
-      <li><h3>Download the installer</h3>
-        <p>On the <a href="https://github.com/dofight/dofight/releases/latest">latest release</a> page, download <code>Dofight_…_x64-setup.exe</code> (the other files are for updates).</p></li>
-      <li><h3>Run it</h3>
-        <p>If Windows shows “Windows protected your PC”, click “More info”, then “Run anyway”: Dofight is a small project without a paid certificate.</p></li>
+      <li><h3>Download Dofight</h3>
+        <p>On the <a href="https://github.com/dofight/dofight/releases/latest">latest release</a> page, download <code>Dofight_…_x64-setup.exe</code> on Windows, or <code>Dofight_…_universal.dmg</code> on a Mac (Intel and Apple Silicon). The other files are for updates.</p></li>
+      <li><h3>Install it</h3>
+        <p><strong>On Windows</strong>, if Windows shows “Windows protected your PC”, click “More info”, then “Run anyway”: Dofight is a small project without a paid certificate.</p>
+        <p><strong>On a Mac</strong>, open the <code>.dmg</code> and drag Dofight to Applications. Open Dofight once: macOS refuses, for the same reason. Close the message, then open System Settings → Privacy &amp; Security, scroll down to “Security” and click “Open Anyway”. Then allow Dofight in System Settings → Privacy &amp; Security → Screen Recording (“Screen &amp; System Audio Recording” on macOS 15 and later), and quit and reopen it.</p></li>
       <li><h3>In Dofus: show the coordinates</h3>
         <p>Turn on “Show map coordinates” in the game options. Dofight looks for your subarea name just above the coordinates: without them, it can't tell where you are.</p></li>
       <li><h3>In Dofus: keep the icon bar expanded</h3>
@@ -469,17 +471,20 @@ document.addEventListener("loadeddata", function (e) {
         <p>Si tu envoies une suggestion, il transmet ton message et, si tu laisses les deux options activées, l'état de Dofight (sous-zone lue, combat, version, paramètres) et son journal des 10 dernières minutes. Jamais de capture d'écran ni de chat, ni de nom de personnage, de guilde ou de compte.</p></div></details>
       <details id="faq-windows"><summary>Windows affiche « Windows a protégé votre ordinateur »</summary><div>
         <p>C'est normal : Dofight est un petit projet, qui n'a pas de certificat payant. Clique sur « Informations complémentaires », puis sur « Exécuter quand même ». Le code est public : tu peux le lire sur <a href="https://github.com/dofight/dofight">GitHub</a>.</p></div></details>
+      <details id="faq-mac"><summary>Sur Mac, Dofight ne s'ouvre pas ou ne lit rien</summary><div>
+        <p>Au premier lancement, macOS refuse de l'ouvrir : Dofight est un petit projet, qui n'a pas de certificat payant. Ferme le message, puis ouvre Réglages Système → Confidentialité et sécurité, descends jusqu'à « Sécurité » et clique sur « Ouvrir quand même ».</p>
+        <p>Pour lire l'écran, Dofight doit être autorisé dans Réglages Système → Confidentialité et sécurité → Enregistrement de l'écran (« Enregistrement de l'écran et de l'audio système » sur macOS 15 et plus récent). Active-le, puis quitte et rouvre Dofight.</p></div></details>
       <details id="faq-nothing"><summary>Dofight n'affiche rien, ou pas les bons monstres</summary><div>
         <p>Vérifie, dans l'ordre :</p>
         <ol><li>Dans Dofus, l'option « Afficher les coordonnées de la carte » est activée (Options → Interface → Cartes).</li>
         <li>La barre d'icônes en haut à gauche du jeu est dépliée.</li>
-        <li>Le français fait partie des langues de Windows (Paramètres Windows → Heure et langue → Langue et région).</li>
+        <li>Le français fait partie des langues de Windows (Paramètres Windows → Heure et langue → Langue et région). Sur Mac : Dofight est autorisé dans Enregistrement de l'écran.</li>
         <li>L'interrupteur « Lecture de l'écran » est allumé dans les paramètres de Dofight.</li></ol>
         <p>Le guide « Bien démarrer » (menu ☰) te dit si les deux réglages du jeu sont détectés.</p></div></details>
       <details id="faq-accounts"><summary>Je joue sur plusieurs comptes</summary><div>
         <p>Choisis la fenêtre Dofus à lire dans Paramètres → « Lecture de l'écran ».</p></div></details>
       <details id="faq-shortcut"><summary>Le raccourci Ctrl+Maj+D ne fait rien</summary><div>
-        <p>Il est sans doute déjà utilisé par une autre application. Choisis-en un autre dans Paramètres → « Fenêtre » : Ctrl, Alt ou Maj (avec Ctrl ou Alt) + une touche, ou une touche de fonction (F1 à F12).</p></div></details>
+        <p>Il est sans doute déjà utilisé par une autre application. Choisis-en un autre dans Paramètres → « Fenêtre » : Ctrl, Alt ou Maj (avec Ctrl ou Alt) + une touche, ou une touche de fonction (F1 à F12). Sur Mac, le raccourci est Control+Maj+D, et Option remplace Alt.</p></div></details>
       <details id="faq-songe"><summary>Comment marche le mode Songes ?</summary><div>
         <p>Dans les Songes, le mode s'active tout seul. Le bouton « Songes » sert à l'activer ou à le couper à la main. Hors combat, survole un groupe de monstres sur la carte, ou affiche-les tous avec la touche du jeu : ils s'affichent dans la liste, avant le combat.</p></div></details>
       <details id="faq-updates"><summary>Comment mettre Dofight à jour ?</summary><div>
@@ -487,7 +492,7 @@ document.addEventListener("loadeddata", function (e) {
       <details id="faq-suggestion"><summary>J'ai trouvé une erreur, ou j'ai une idée</summary><div>
         <p>Le bouton « Envoyer une suggestion », en bas de la liste, envoie ton message à l'équipe, de façon anonyme. Si tu veux une réponse, passe par le <a href="https://discord.gg/G8G4cyvpx6">Discord</a>.</p></div></details>
       <details id="faq-uninstall"><summary>Comment désinstaller Dofight ?</summary><div>
-        <p>Paramètres Windows → Applications → Applications installées → Dofight → Désinstaller.</p></div></details>
+        <p>Paramètres Windows → Applications → Applications installées → Dofight → Désinstaller. Sur Mac, glisse Dofight d'Applications à la Corbeille.</p></div></details>
     </div>
 
     <div class="faq" lang="en">
@@ -502,17 +507,20 @@ document.addEventListener("loadeddata", function (e) {
         <p>If you send a suggestion, it sends your message and, if you leave both switches on, Dofight's state (subarea read, fight, version, settings) and its log of the last 10 minutes. Never a screenshot, the chat, or a character, guild or account name.</p></div></details>
       <details data-q="faq-windows"><summary>Windows shows “Windows protected your PC”</summary><div>
         <p>That's normal: Dofight is a small project without a paid certificate. Click “More info”, then “Run anyway”. The code is public: you can read it on <a href="https://github.com/dofight/dofight">GitHub</a>.</p></div></details>
+      <details data-q="faq-mac"><summary>On a Mac, Dofight won't open or reads nothing</summary><div>
+        <p>On first launch macOS refuses to open it: Dofight is a small project without a paid certificate. Close the message, then open System Settings → Privacy &amp; Security, scroll down to “Security” and click “Open Anyway”.</p>
+        <p>To read the screen, Dofight must be allowed in System Settings → Privacy &amp; Security → Screen Recording (“Screen &amp; System Audio Recording” on macOS 15 and later). Turn it on, then quit and reopen Dofight.</p></div></details>
       <details data-q="faq-nothing"><summary>Dofight shows nothing, or the wrong monsters</summary><div>
         <p>Check, in this order:</p>
         <ol><li>In Dofus, “Show map coordinates” is on in the game options.</li>
         <li>The icon bar in the game's top-left corner is expanded.</li>
-        <li>French is among your Windows languages (Windows Settings → Time &amp; language → Language &amp; region), even with the game in English.</li>
+        <li>French is among your Windows languages (Windows Settings → Time &amp; language → Language &amp; region), even with the game in English. On a Mac: Dofight is allowed in Screen Recording.</li>
         <li>The “Screen reading” switch is on in Dofight's settings.</li></ol>
         <p>The “Getting started” guide (☰ menu) tells you whether both game settings are detected.</p></div></details>
       <details data-q="faq-accounts"><summary>I play several accounts</summary><div>
         <p>Pick the Dofus window to read in Settings → “Screen reading”.</p></div></details>
       <details data-q="faq-shortcut"><summary>The Ctrl+Shift+D shortcut does nothing</summary><div>
-        <p>Another app is probably using it. Pick another one in Settings → “Window”: Ctrl, Alt or Shift (with Ctrl or Alt) + a key, or a function key (F1 to F12).</p></div></details>
+        <p>Another app is probably using it. Pick another one in Settings → “Window”: Ctrl, Alt or Shift (with Ctrl or Alt) + a key, or a function key (F1 to F12). On a Mac, the shortcut is Control+Shift+D, and Option stands in for Alt.</p></div></details>
       <details data-q="faq-songe"><summary>How does Dreams mode work?</summary><div>
         <p>Dreams mode turns on by itself inside the Dreams. The “Dreams” button switches it on or off by hand. Out of a fight, hover over a monster group on the map, or show them all with the game's own key: they show up in the list, before the fight.</p></div></details>
       <details data-q="faq-english"><summary>Is everything in English?</summary><div>
@@ -522,7 +530,7 @@ document.addEventListener("loadeddata", function (e) {
       <details data-q="faq-suggestion"><summary>I found a mistake, or I have an idea</summary><div>
         <p>The “Send a suggestion” button, at the bottom of the list, sends your message anonymously to the team. For a reply, ask on the <a href="https://discord.gg/G8G4cyvpx6">Discord</a>.</p></div></details>
       <details data-q="faq-uninstall"><summary>How do I uninstall Dofight?</summary><div>
-        <p>Windows Settings → Apps → Installed apps → Dofight → Uninstall.</p></div></details>
+        <p>Windows Settings → Apps → Installed apps → Dofight → Uninstall. On a Mac, drag Dofight from Applications to the Trash.</p></div></details>
     </div>
   </div>
 </section>
