@@ -337,8 +337,8 @@ document.addEventListener("loadeddata", function (e) {
         <div>
           <h3 lang="fr">Mode Songes</h3>
           <h3 lang="en">Dreams mode</h3>
-          <p lang="fr">Dans un Songe, le mode Songes s'active tout seul. Hors combat, survole un groupe de monstres sur la carte et il s'affiche dans la liste, avant le combat.</p>
-          <p lang="en">Dreams mode turns on by itself inside a Dream. Out of a fight, hover over a monster group on the map and it shows up in the list, before the fight.</p>
+          <p lang="fr">Dans les Songes, le mode s'active tout seul. Hors combat, survole un groupe de monstres sur la carte, ou affiche-les tous avec la touche du jeu : ils s'affichent dans la liste, avant le combat.</p>
+          <p lang="en">Dreams mode turns on by itself inside the Dreams. Out of a fight, hover over a monster group on the map, or show them all with the game's own key: they show up in the list, before the fight.</p>
         </div>
         <figure class="clip">
       <div class="vid">
@@ -361,8 +361,8 @@ document.addEventListener("loadeddata", function (e) {
   <div class="wrap">
     <h2 lang="fr">Ce que Dofight lit</h2>
     <h2 lang="en">What Dofight reads</h2>
-    <p class="lead" lang="fr">Ce n'est ni un bot ni un mod. Environ trois fois par seconde, Dofight capture la fenêtre Dofus quand elle est au premier plan, et n'en lit que le coin en haut à gauche (et, en mode Songes, une zone autour de ta souris).</p>
-    <p class="lead" lang="en">It isn't a bot or a mod. About three times a second, Dofight captures the Dofus window while it's in the foreground, and only reads its top-left corner (and, in Dreams mode, an area around your mouse).</p>
+    <p class="lead" lang="fr">Ce n'est ni un bot ni un mod. Environ trois fois par seconde, Dofight capture la fenêtre Dofus quand elle est au premier plan, et n'en lit que le coin en haut à gauche (et, en mode Songes, les infobulles de groupes de monstres, où qu'elles soient dans la fenêtre).</p>
+    <p class="lead" lang="en">It isn't a bot or a mod. About three times a second, Dofight captures the Dofus window while it's in the foreground, and only reads its top-left corner (and, in Dreams mode, monster group tooltips, wherever they are in the window).</p>
 
     <div class="reads">
       <figure class="corner">
@@ -378,14 +378,14 @@ document.addEventListener("loadeddata", function (e) {
           <ul lang="fr">
             <li>Si Dofus est en arrière-plan, il ne capture rien.</li>
             <li>En combat, il surveille surtout la barre d'icônes, pour voir quand le combat se termine ; s'il ne connaît pas encore ta sous-zone (Dofight ouvert en plein combat), il relit le nom de la sous-zone plus souvent, jusqu'à la trouver.</li>
-            <li>En mode Songes, hors combat, quand ta souris s'arrête, il lit aussi une zone autour d'elle (environ 800 × 700 pixels, surtout au-dessus) pour y trouver l'infobulle du groupe de monstres survolé ; il n'en retient que le texte de cette infobulle.</li>
+            <li>En mode Songes, hors combat, quand ta souris s'arrête, il cherche les infobulles de groupes de monstres dans toute la fenêtre du jeu : elles s'affichent où se trouve le groupe, et le jeu peut toutes les montrer d'un coup. Il n'en retient que leur texte, et rien d'autre de l'écran n'est gardé ni envoyé : ni le tchat, ni les noms de joueurs, de guilde ou d'alliance, ni ton inventaire.</li>
             <li>Les captures ne quittent jamais ton PC, c'est Windows qui y reconnaît le texte.</li>
           </ul>
           <h3 lang="en">How it reads</h3>
           <ul lang="en">
             <li>While Dofus is in the background, it captures nothing.</li>
             <li>In a fight it mostly watches the icon bar, to see when the fight ends; if it doesn't know your subarea yet (Dofight opened mid-fight), it re-reads the subarea name more often until it finds it.</li>
-            <li>In Dreams mode, out of a fight, when your mouse stops, it also reads an area around it (about 800 × 700 pixels, mostly above it) to find the tooltip of the hovered monster group; it keeps only that tooltip's text.</li>
+            <li>In Dreams mode, out of a fight, when your mouse stops, it looks for monster group tooltips anywhere in the game window: they appear where the group is, and the game can show them all at once. It keeps only their text, and nothing else on screen is kept or sent: not the chat, not player, guild or alliance names, not your inventory.</li>
             <li>The captures never leave your PC, where Windows reads the text.</li>
           </ul>
         </div>
@@ -459,10 +459,10 @@ document.addEventListener("loadeddata", function (e) {
 
     <div class="faq" lang="fr">
       <details id="faq-allowed"><summary>C'est autorisé ?</summary><div>
-        <p>Dofight n'est ni un bot ni un mod : il ne clique pas, n'envoie rien au jeu et ne modifie rien. Il lit uniquement le coin en haut à gauche de la fenêtre Dofus (et, en mode Songes, une zone autour de ta souris) et affiche des informations publiques (données du jeu, guides).</p>
+        <p>Dofight n'est ni un bot ni un mod : il ne clique pas, n'envoie rien au jeu et ne modifie rien. Il lit uniquement le coin en haut à gauche de la fenêtre Dofus (et, en mode Songes, les infobulles de groupes de monstres, où qu'elles soient dans la fenêtre) et affiche des informations publiques (données du jeu, guides).</p>
         <p>C'est un outil fait par des fans, sans lien avec Ankama, qui ne l'a ni validé ni approuvé : tu l'utilises sous ta propre responsabilité.</p></div></details>
       <details id="faq-reads"><summary>Que lit Dofight, et quand ?</summary><div>
-        <p>Le coin en haut à gauche de la fenêtre Dofus (la barre d'icônes, le nom de la sous-zone et les coordonnées de la carte), et seulement quand Dofus est au premier plan. En combat, il surveille surtout la barre d'icônes ; s'il ne connaît pas encore ta sous-zone (Dofight ouvert en plein combat), il relit le nom de la sous-zone plus souvent, jusqu'à la trouver. En mode Songes, hors combat, quand ta souris s'arrête, il lit aussi une zone autour d'elle (environ 800 × 700 pixels, surtout au-dessus) pour y trouver l'infobulle du groupe de monstres survolé ; il n'en retient que le texte de cette infobulle.</p>
+        <p>Le coin en haut à gauche de la fenêtre Dofus (la barre d'icônes, le nom de la sous-zone et les coordonnées de la carte), et seulement quand Dofus est au premier plan. En combat, il surveille surtout la barre d'icônes ; s'il ne connaît pas encore ta sous-zone (Dofight ouvert en plein combat), il relit le nom de la sous-zone plus souvent, jusqu'à la trouver. En mode Songes, hors combat, quand ta souris s'arrête, il cherche les infobulles de groupes de monstres dans toute la fenêtre du jeu : elles s'affichent où se trouve le groupe, et le jeu peut toutes les montrer d'un coup. Il n'en retient que leur texte, et rien d'autre de l'écran n'est gardé ni envoyé : ni le tchat, ni les noms de joueurs, de guilde ou d'alliance, ni ton inventaire.</p>
         <p>Tu peux tout couper dans Paramètres → « Lecture de l'écran » : Dofight ne capture alors la fenêtre Dofus que lorsque tu cliques sur « Scanner ma sous-zone ». <a href="#reads">Le détail est plus haut.</a></p></div></details>
       <details id="faq-internet"><summary>Qu'est-ce que Dofight envoie sur Internet ?</summary><div>
         <p>Rien pendant que tu joues : pas de compte, pas de statistiques. Il contacte GitHub pour ses mises à jour.</p>
@@ -481,7 +481,7 @@ document.addEventListener("loadeddata", function (e) {
       <details id="faq-shortcut"><summary>Le raccourci Ctrl+Maj+D ne fait rien</summary><div>
         <p>Il est sans doute déjà utilisé par une autre application. Choisis-en un autre dans Paramètres → « Fenêtre » : Ctrl, Alt ou Maj (avec Ctrl ou Alt) + une touche, ou une touche de fonction (F1 à F12).</p></div></details>
       <details id="faq-songe"><summary>Comment marche le mode Songes ?</summary><div>
-        <p>Dans un Songe, le mode Songes s'active tout seul. Le bouton « Songes » sert à l'activer ou à le couper à la main. Hors combat, survole un groupe de monstres sur la carte et il s'affiche dans la liste, avant le combat.</p></div></details>
+        <p>Dans les Songes, le mode s'active tout seul. Le bouton « Songes » sert à l'activer ou à le couper à la main. Hors combat, survole un groupe de monstres sur la carte, ou affiche-les tous avec la touche du jeu : ils s'affichent dans la liste, avant le combat.</p></div></details>
       <details id="faq-updates"><summary>Comment mettre Dofight à jour ?</summary><div>
         <p>Rien à faire, les mises à jour se font toutes seules. Ce qui change à chaque version est annoncé sur le <a href="https://discord.gg/G8G4cyvpx6">Discord</a> et listé sur <a href="https://github.com/dofight/dofight/releases">GitHub</a>.</p></div></details>
       <details id="faq-suggestion"><summary>J'ai trouvé une erreur, ou j'ai une idée</summary><div>
@@ -492,10 +492,10 @@ document.addEventListener("loadeddata", function (e) {
 
     <div class="faq" lang="en">
       <details data-q="faq-allowed"><summary>Is it allowed?</summary><div>
-        <p>Dofight isn't a bot or a mod: it doesn't click, sends nothing to the game and changes nothing. It only reads the top-left corner of the Dofus window (and, in Dreams mode, an area around your mouse) and shows public information (game data, guides).</p>
+        <p>Dofight isn't a bot or a mod: it doesn't click, sends nothing to the game and changes nothing. It only reads the top-left corner of the Dofus window (and, in Dreams mode, monster group tooltips, wherever they are in the window) and shows public information (game data, guides).</p>
         <p>It's a fan-made tool, not affiliated with, reviewed or approved by Ankama: you use it at your own risk.</p></div></details>
       <details data-q="faq-reads"><summary>What does Dofight read, and when?</summary><div>
-        <p>The top-left corner of the Dofus window (the icon bar, the subarea name and the map coordinates), and only while Dofus is in the foreground. In a fight it mostly watches the icon bar; if it doesn't know your subarea yet (Dofight opened mid-fight), it re-reads the subarea name more often until it finds it. In Dreams mode, out of a fight, when your mouse stops, it also reads an area around it (about 800 × 700 pixels, mostly above it) to find the tooltip of the hovered monster group; it keeps only that tooltip's text.</p>
+        <p>The top-left corner of the Dofus window (the icon bar, the subarea name and the map coordinates), and only while Dofus is in the foreground. In a fight it mostly watches the icon bar; if it doesn't know your subarea yet (Dofight opened mid-fight), it re-reads the subarea name more often until it finds it. In Dreams mode, out of a fight, when your mouse stops, it looks for monster group tooltips anywhere in the game window: they appear where the group is, and the game can show them all at once. It keeps only their text, and nothing else on screen is kept or sent: not the chat, not player, guild or alliance names, not your inventory.</p>
         <p>You can turn it all off in Settings → “Screen reading”: Dofight then captures the Dofus window only when you click “Scan my subarea”. <a href="#reads">The details are above.</a></p></div></details>
       <details data-q="faq-internet"><summary>What does Dofight send over the Internet?</summary><div>
         <p>Nothing while you play: no account, no statistics. It contacts GitHub for its updates.</p>
@@ -514,7 +514,7 @@ document.addEventListener("loadeddata", function (e) {
       <details data-q="faq-shortcut"><summary>The Ctrl+Shift+D shortcut does nothing</summary><div>
         <p>Another app is probably using it. Pick another one in Settings → “Window”: Ctrl, Alt or Shift (with Ctrl or Alt) + a key, or a function key (F1 to F12).</p></div></details>
       <details data-q="faq-songe"><summary>How does Dreams mode work?</summary><div>
-        <p>Dreams mode turns on by itself inside a Dream. The “Dreams” button switches it on or off by hand. Out of a fight, hover over a monster group on the map and it shows up in the list, before the fight.</p></div></details>
+        <p>Dreams mode turns on by itself inside the Dreams. The “Dreams” button switches it on or off by hand. Out of a fight, hover over a monster group on the map, or show them all with the game's own key: they show up in the list, before the fight.</p></div></details>
       <details data-q="faq-english"><summary>Is everything in English?</summary><div>
         <p>The interface, the badges, the game data and the summaries are available in English: switch in Paramètres → Langue (the app starts in French). The guides the summaries link to are in French.</p></div></details>
       <details data-q="faq-updates"><summary>How do I update Dofight?</summary><div>
