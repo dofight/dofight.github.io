@@ -319,7 +319,7 @@ document.addEventListener("loadeddata", function (e) {
           <h3 lang="fr">La fiche d'un monstre</h3>
           <h3 lang="en">A monster's card</h3>
           <p lang="fr">Les monstres sont repliés, avec des icônes qui signalent les dangers. Survole-en un pour un aperçu, clique pour ouvrir sa fiche : ses badges, ses résistances par élément et ses sorts. Survole un sort pour voir ce qu'il fait.</p>
-          <div class="tags" lang="fr"><span class="tag danger">Danger</span><span class="tag tip">Conseil</span><span class="tag mechanic">Mécanique</span></div>
+          <div class="tags" lang="fr"><span class="tag danger">Danger</span><span class="tag mechanic">Mécanique</span><span class="tag tip">Conseil</span></div>
           <p lang="en">Monsters are collapsed, with icons that flag the dangers. Hover over one for a preview, click to open its card: its badges, its resistances by element and its spells. Hover over a spell to see what it does.</p>
           <div class="tags" lang="en"><span class="tag danger">Danger</span><span class="tag tip">Tip</span><span class="tag mechanic">Mechanic</span></div>
         </div>
@@ -329,7 +329,7 @@ document.addEventListener("loadeddata", function (e) {
           <span lang="fr">Un monstre replié survolé, sa fiche ouverte, un sort survolé</span><span lang="en">Hovering a collapsed monster, opening its card, hovering a spell</span></div>
         <video autoplay muted loop playsinline preload="metadata" poster="/videos/4-card.jpg"><source src="/videos/4-card.mp4" type="video/mp4"></video>
       </div>
-      <figcaption lang="fr">Les trois types de badges : Danger, Conseil, Mécanique.</figcaption>
+      <figcaption lang="fr">Les trois types de badges : Danger, Mécanique, Conseil.</figcaption>
       <figcaption lang="en">The three kinds of badges: Danger, Tip, Mechanic.</figcaption>
     </figure>
       </div>
@@ -377,14 +377,14 @@ document.addEventListener("loadeddata", function (e) {
           <h3 lang="fr">Comment il lit</h3>
           <ul lang="fr">
             <li>Si Dofus est en arrière-plan, il ne capture rien.</li>
-            <li>En combat, il surveille surtout la barre d'icônes, pour voir quand le combat se termine ; s'il ne connaît pas encore ta sous-zone (Dofight ouvert en plein combat), il relit le nom de la sous-zone plus souvent, jusqu'à la trouver.</li>
+            <li>En combat, il lit surtout la barre d'icônes, pour voir quand le combat se termine ; s'il ne connaît pas encore ta sous-zone (Dofight ouvert en plein combat), il relit le nom de la sous-zone plus souvent, jusqu'à la trouver.</li>
             <li>En mode Songes, hors combat, quand ta souris s'arrête, il cherche les infobulles de groupes de monstres dans toute la fenêtre du jeu : elles s'affichent où se trouve le groupe, et le jeu peut toutes les montrer d'un coup. Il n'en retient que leur texte, et rien d'autre de l'écran n'est gardé ni envoyé : ni le tchat, ni les noms de joueurs, de guilde ou d'alliance, ni ton inventaire.</li>
             <li>Les captures ne quittent jamais ton ordinateur : c'est Windows, ou macOS sur Mac, qui y reconnaît le texte.</li>
           </ul>
           <h3 lang="en">How it reads</h3>
           <ul lang="en">
             <li>While Dofus is in the background, it captures nothing.</li>
-            <li>In a fight it mostly watches the icon bar, to see when the fight ends; if it doesn't know your subarea yet (Dofight opened mid-fight), it re-reads the subarea name more often until it finds it.</li>
+            <li>In a fight it mostly reads the icon bar, to see when the fight ends; if it doesn't know your subarea yet (Dofight opened mid-fight), it re-reads the subarea name more often until it finds it.</li>
             <li>In Dreams mode, out of a fight, when your mouse stops, it looks for monster group tooltips anywhere in the game window: they appear where the group is, and the game can show them all at once. It keeps only their text, and nothing else on screen is kept or sent: not the chat, not player, guild or alliance names, not your inventory.</li>
             <li>The captures never leave your computer, where Windows, or macOS on a Mac, reads the text.</li>
           </ul>
@@ -432,9 +432,9 @@ document.addEventListener("loadeddata", function (e) {
         <p><strong>Sur Windows</strong>, si Windows affiche « Windows a protégé votre ordinateur », clique sur « Informations complémentaires », puis sur « Exécuter quand même » : Dofight est un petit projet, qui n'a pas de certificat payant.</p>
         <p><strong>Sur Mac</strong>, ouvre le <code>.dmg</code> et glisse Dofight dans Applications. Lance Dofight une première fois : macOS refuse de l'ouvrir, pour la même raison. Ferme le message, puis ouvre Réglages Système → Confidentialité et sécurité, descends jusqu'à « Sécurité » et clique sur « Ouvrir quand même ». Autorise ensuite Dofight dans Réglages Système → Confidentialité et sécurité → Enregistrement de l'écran (« Enregistrement de l'écran et de l'audio système » sur macOS 15 et plus récent), puis quitte et rouvre-le.</p></li>
       <li><h3>Dans Dofus : affiche les coordonnées</h3>
-        <p>Active Options → Interface → Cartes → « Afficher les coordonnées de la carte ». Dofight cherche le nom de ta sous-zone juste au-dessus des coordonnées : sans elles, il ne sait pas où tu es.</p></li>
-      <li><h3>Dans Dofus : garde la barre d'icônes dépliée</h3>
-        <p>Celle en haut à gauche du jeu. Dofight la surveille pour savoir quand un combat commence : il s'ouvre alors tout seul et se referme à la fin.</p></li>
+        <p>Active Options → Interface → Cartes → « Afficher les coordonnées de la carte ». Dofight cherche le nom de ta sous-zone juste au-dessus des coordonnées : sans elles, il ne sait pas où tu es. Rien du jeu ne doit les couvrir ; les autres fenêtres, Dofight compris, ne gênent pas.</p></li>
+      <li><h3>Dans Dofus : garde la barre d'icônes visible</h3>
+        <p>Celle en haut à gauche du jeu, dépliée ou repliée, du moment que rien du jeu ne la couvre (un menu, une fenêtre de Dofus). Dofight la lit pour savoir quand un combat commence : il s'ouvre alors tout seul et se referme à la fin.</p></li>
     </ol>
     <ol class="steps" lang="en">
       <li><h3>Download Dofight</h3>
@@ -443,9 +443,9 @@ document.addEventListener("loadeddata", function (e) {
         <p><strong>On Windows</strong>, if Windows shows “Windows protected your PC”, click “More info”, then “Run anyway”: Dofight is a small project without a paid certificate.</p>
         <p><strong>On a Mac</strong>, open the <code>.dmg</code> and drag Dofight to Applications. Open Dofight once: macOS refuses, for the same reason. Close the message, then open System Settings → Privacy &amp; Security, scroll down to “Security” and click “Open Anyway”. Then allow Dofight in System Settings → Privacy &amp; Security → Screen Recording (“Screen &amp; System Audio Recording” on macOS 15 and later), and quit and reopen it.</p></li>
       <li><h3>In Dofus: show the coordinates</h3>
-        <p>Turn on “Show map coordinates” in the game options. Dofight looks for your subarea name just above the coordinates: without them, it can't tell where you are.</p></li>
-      <li><h3>In Dofus: keep the icon bar expanded</h3>
-        <p>The one in the game's top-left corner. Dofight watches it to know when a fight starts: it then opens on its own and closes when the fight ends.</p></li>
+        <p>Turn on “Show map coordinates” in the game options. Dofight looks for your subarea name just above the coordinates: without them, it can't tell where you are. Nothing in the game should cover them; other windows, Dofight included, don't get in the way.</p></li>
+      <li><h3>In Dofus: keep the icon bar in sight</h3>
+        <p>The one in the game's top-left corner, expanded or collapsed, as long as nothing in the game covers it (a menu, a Dofus window). Dofight reads it to know when a fight starts: it then opens on its own and closes when the fight ends.</p></li>
     </ol>
 
     <p class="done" lang="fr">Lance Dofus. La première fois, le guide « Bien démarrer » te montre où regarder et vérifie les deux réglages dans ton jeu. Tu le retrouves ensuite dans le menu ☰. Les mises à jour se font toutes seules.</p>
@@ -464,7 +464,7 @@ document.addEventListener("loadeddata", function (e) {
         <p>Dofight n'est ni un bot ni un mod : il ne clique pas, n'envoie rien au jeu et ne modifie rien. Il lit uniquement le coin en haut à gauche de la fenêtre Dofus (et, en mode Songes, les infobulles de groupes de monstres, où qu'elles soient dans la fenêtre) et affiche des informations publiques (données du jeu, guides).</p>
         <p>C'est un outil fait par des fans, sans lien avec Ankama, qui ne l'a ni validé ni approuvé : tu l'utilises sous ta propre responsabilité.</p></div></details>
       <details id="faq-reads"><summary>Que lit Dofight, et quand ?</summary><div>
-        <p>Le coin en haut à gauche de la fenêtre Dofus (la barre d'icônes, le nom de la sous-zone et les coordonnées de la carte), et seulement quand Dofus est au premier plan. En combat, il surveille surtout la barre d'icônes ; s'il ne connaît pas encore ta sous-zone (Dofight ouvert en plein combat), il relit le nom de la sous-zone plus souvent, jusqu'à la trouver. En mode Songes, hors combat, quand ta souris s'arrête, il cherche les infobulles de groupes de monstres dans toute la fenêtre du jeu : elles s'affichent où se trouve le groupe, et le jeu peut toutes les montrer d'un coup. Il n'en retient que leur texte, et rien d'autre de l'écran n'est gardé ni envoyé : ni le tchat, ni les noms de joueurs, de guilde ou d'alliance, ni ton inventaire.</p>
+        <p>Le coin en haut à gauche de la fenêtre Dofus (la barre d'icônes, le nom de la sous-zone et les coordonnées de la carte), et seulement quand Dofus est au premier plan. En combat, il lit surtout la barre d'icônes ; s'il ne connaît pas encore ta sous-zone (Dofight ouvert en plein combat), il relit le nom de la sous-zone plus souvent, jusqu'à la trouver. En mode Songes, hors combat, quand ta souris s'arrête, il cherche les infobulles de groupes de monstres dans toute la fenêtre du jeu : elles s'affichent où se trouve le groupe, et le jeu peut toutes les montrer d'un coup. Il n'en retient que leur texte, et rien d'autre de l'écran n'est gardé ni envoyé : ni le tchat, ni les noms de joueurs, de guilde ou d'alliance, ni ton inventaire.</p>
         <p>Tu peux tout couper dans Paramètres → « Lecture de l'écran » : Dofight ne capture alors la fenêtre Dofus que lorsque tu cliques sur « Scanner ma sous-zone ». <a href="#reads">Le détail est plus haut.</a></p></div></details>
       <details id="faq-internet"><summary>Qu'est-ce que Dofight envoie sur Internet ?</summary><div>
         <p>Rien pendant que tu joues : pas de compte, pas de statistiques. Il contacte GitHub pour ses mises à jour.</p>
@@ -477,7 +477,7 @@ document.addEventListener("loadeddata", function (e) {
       <details id="faq-nothing"><summary>Dofight n'affiche rien, ou pas les bons monstres</summary><div>
         <p>Vérifie, dans l'ordre :</p>
         <ol><li>Dans Dofus, l'option « Afficher les coordonnées de la carte » est activée (Options → Interface → Cartes).</li>
-        <li>La barre d'icônes en haut à gauche du jeu est dépliée.</li>
+        <li>La barre d'icônes en haut à gauche du jeu est visible, dépliée ou repliée, et rien du jeu (un menu, une fenêtre de Dofus) ne couvre ce coin.</li>
         <li>Le français fait partie des langues de Windows (Paramètres Windows → Heure et langue → Langue et région). Sur Mac : Dofight est autorisé dans Enregistrement de l'écran.</li>
         <li>L'option « Lecture de l'écran » est activée dans les paramètres de Dofight.</li></ol>
         <p>Le guide « Bien démarrer » (menu ☰) te dit si les deux réglages du jeu sont détectés.</p></div></details>
@@ -500,7 +500,7 @@ document.addEventListener("loadeddata", function (e) {
         <p>Dofight isn't a bot or a mod: it doesn't click, sends nothing to the game and changes nothing. It only reads the top-left corner of the Dofus window (and, in Dreams mode, monster group tooltips, wherever they are in the window) and shows public information (game data, guides).</p>
         <p>It's a fan-made tool, not affiliated with, reviewed or approved by Ankama: you use it at your own risk.</p></div></details>
       <details data-q="faq-reads"><summary>What does Dofight read, and when?</summary><div>
-        <p>The top-left corner of the Dofus window (the icon bar, the subarea name and the map coordinates), and only while Dofus is in the foreground. In a fight it mostly watches the icon bar; if it doesn't know your subarea yet (Dofight opened mid-fight), it re-reads the subarea name more often until it finds it. In Dreams mode, out of a fight, when your mouse stops, it looks for monster group tooltips anywhere in the game window: they appear where the group is, and the game can show them all at once. It keeps only their text, and nothing else on screen is kept or sent: not the chat, not player, guild or alliance names, not your inventory.</p>
+        <p>The top-left corner of the Dofus window (the icon bar, the subarea name and the map coordinates), and only while Dofus is in the foreground. In a fight it mostly reads the icon bar; if it doesn't know your subarea yet (Dofight opened mid-fight), it re-reads the subarea name more often until it finds it. In Dreams mode, out of a fight, when your mouse stops, it looks for monster group tooltips anywhere in the game window: they appear where the group is, and the game can show them all at once. It keeps only their text, and nothing else on screen is kept or sent: not the chat, not player, guild or alliance names, not your inventory.</p>
         <p>You can turn it all off in Settings → “Screen reading”: Dofight then captures the Dofus window only when you click “Scan my subarea”. <a href="#reads">The details are above.</a></p></div></details>
       <details data-q="faq-internet"><summary>What does Dofight send over the Internet?</summary><div>
         <p>Nothing while you play: no account, no statistics. It contacts GitHub for its updates.</p>
@@ -513,7 +513,7 @@ document.addEventListener("loadeddata", function (e) {
       <details data-q="faq-nothing"><summary>Dofight shows nothing, or the wrong monsters</summary><div>
         <p>Check, in this order:</p>
         <ol><li>In Dofus, “Show map coordinates” is on in the game options.</li>
-        <li>The icon bar in the game's top-left corner is expanded.</li>
+        <li>The icon bar in the game's top-left corner is in sight, expanded or collapsed, and nothing in the game (a menu, a Dofus window) covers that corner.</li>
         <li>French is among your Windows languages (Windows Settings → Time &amp; language → Language &amp; region), even with the game in English. On a Mac: Dofight is allowed in Screen Recording.</li>
         <li>The “Screen reading” switch is on in Dofight's settings.</li></ol>
         <p>The “Getting started” guide (☰ menu) tells you whether both game settings are detected.</p></div></details>
