@@ -14,14 +14,14 @@ URLS = {"fr": f"{SITE}/", "en": f"{SITE}/en/"}
 TEXT = {
     "fr": {
         "title": "Dofight · L'assistant de combat pour Dofus 3",
-        "description": "Dofight : un panneau à côté de Dofus 3 qui te montre ce qui est dangereux chez les monstres "
+        "description": "Dofight : un panneau à côté de Dofus 3 qui te montre le détail des monstres "
         "autour de toi. Gratuit, open source, lecture de l'écran uniquement.",
         "locale": "fr_FR",
         "image_alt": "Dofight ouvert à côté d'un combat de Dofus 3",
     },
     "en": {
         "title": "Dofight · The fight assistant for Dofus 3",
-        "description": "Dofight: a panel next to Dofus 3 that shows what makes the monsters around you dangerous. "
+        "description": "Dofight: a panel next to Dofus 3 that shows you the details of the monsters around you. "
         "Free, open source, it only reads the screen.",
         "locale": "en_US",
         "image_alt": "Dofight open next to a Dofus 3 fight",
@@ -40,7 +40,7 @@ def head(lang: str) -> str:
         "url": URLS[lang],
         "image": f"{SITE}/images/og.jpg",
         "applicationCategory": "GameApplication",
-        "operatingSystem": "Windows 10, Windows 11",
+        "operatingSystem": "Windows 10, Windows 11, macOS 14 or later",
         "downloadUrl": "https://github.com/dofight/dofight/releases/latest",
         "license": "https://github.com/dofight/dofight/blob/main/LICENSE",
         "inLanguage": ["fr", "en"],
